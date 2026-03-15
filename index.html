@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Propiedades Coligativas — Lab Visual</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090f;
+  --panel: #0d1117;
+  --card: #111827;
+  --border: #1f2937;
+  --border2: #374151;
+  --cyan: #22d3ee;
+  --blue: #3b82f6;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --purple: #a78bfa;
+  --orange: #fb923c;
+  --ice: #bae6fd;
+  --txt: #f1f5f9;
+  --txt2: #94a3b8;
+  --txt3: #475569;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--txt); font-family: var(--sans); overflow-x: hidden; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--panel); }
+::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(7,9,15,.95); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1rem; height: 56px; backdrop-filter: blur(12px);
+}
+.logo { font-weight: 800; font-size: 1rem; color: var(--cyan); letter-spacing: -0.5px; display: flex; align-items: center; gap: .4rem; white-space: nowrap; }
+.logo span { color: var(--txt2); font-weight: 400; font-size: .8rem; }
+.ntabs { display: flex; gap: 2px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.ntabs::-webkit-scrollbar { display: none; }
+.ntab {
+  padding: .4rem .85rem; border-radius: 6px; cursor: pointer; border: none;
+  background: none; color: var(--txt2); font-size: .82rem; font-weight: 500;
+  transition: all .18s; white-space: nowrap;
+}
+.ntab:hover { background: var(--border); color: var(--txt); }
+.ntab.on { background: var(--cyan); color: #07090f; font-weight: 700; }
+
+/* ── PAGE SYSTEM ── */
+.page { display: none; min-height: 100vh; padding-top: 56px; }
+.page.on { display: block; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+/* ── HERO ── */
+#pg-home { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 56px 1.5rem 3rem; }
+#pg-home.on { display: flex; }
+.hero-tag { display: inline-block; background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.25); color: var(--cyan); font-size: .78rem; font-weight: 600; letter-spacing: 1px; padding: .3rem 1rem; border-radius: 20px; margin-bottom: 1.5rem; }
+.hero-h1 { font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.05; margin-bottom: 1rem; letter-spacing: -1px; word-break: break-word; }
+.hero-h1 em { color: var(--cyan); font-style: normal; display: block; }
+.hero-p { font-size: 1.05rem; color: var(--txt2); max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; font-weight: 400; }
+.cards4 { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1px; max-width: 800px; width: 100%; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+@media(min-width:480px) { .cards4 { grid-template-columns: repeat(2,1fr); } }
+@media(min-width:768px) { .cards4 { grid-template-columns: repeat(4,1fr); } }
+.hcard { background: var(--panel); padding: 1.4rem 1rem; cursor: pointer; transition: background .2s; text-align: left; border: none; }
+.hcard:hover { background: var(--card); }
+.hcard-icon { font-size: 1.8rem; margin-bottom: .5rem; }
+.hcard-name { font-weight: 700; font-size: .95rem; color: var(--txt); margin-bottom: .2rem; }
+.hcard-tag { font-family: var(--mono); font-size: .58rem; color: var(--amber); margin-bottom: .4rem; }
+.hcard-desc { font-size: .78rem; color: var(--txt2); line-height: 1.45; }
+.row-btns { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
+.btn-out { background: none; border: 1px solid var(--border2); border-radius: 8px; color: var(--txt2); font-size: .82rem; font-weight: 500; padding: .45rem 1.1rem; cursor: pointer; transition: all .18s; white-space: nowrap; }
+.btn-out:hover { border-color: var(--cyan); color: var(--cyan); }
+
+/* ── LAB LAYOUT ── */
+#pg-lab { display: none; height: 100vh; overflow: hidden; }
+#pg-lab.on { display: grid; grid-template-columns: 260px 1fr 280px; grid-template-rows: 1fr; }
+.lbar, .rbar { background: var(--panel); overflow-y: auto; padding: calc(56px + .8rem) .8rem .8rem; display: flex; flex-direction: column; gap: .75rem; }
+.lbar { border-right: 1px solid var(--border); }
+.rbar { border-left: 1px solid var(--border); }
+.bar-title { font-size: .62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--txt3); padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+
+/* experiment buttons */
+.expbtn { display: flex; align-items: center; gap: .55rem; padding: .6rem .5rem; border-radius: 8px; cursor: pointer; border: 1.5px solid transparent; background: none; text-align: left; width: 100%; transition: all .15s; }
+.expbtn:hover { background: var(--card); }
+.expbtn.on { background: rgba(34,211,238,.07); border-color: rgba(34,211,238,.3); }
+.expbtn-ico { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.expbtn-n { font-size: .84rem; font-weight: 600; color: var(--txt); }
+.expbtn-s { font-family: var(--mono); font-size: .53rem; color: var(--txt3); }
+
+/* compounds */
+.cmps { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.cmp { padding: .4rem .3rem; border-radius: 6px; cursor: pointer; border: 1.5px solid var(--border); background: var(--card); font-size: .65rem; color: var(--txt2); transition: all .15s; text-align: center; line-height: 1.35; font-weight: 500; }
+.cmp:hover, .cmp.on { border-color: var(--amber); color: var(--amber); background: rgba(245,158,11,.06); }
+
+/* sliders */
+.sl-wrap { display: flex; flex-direction: column; gap: 3px; }
+.sl-row { display: flex; justify-content: space-between; align-items: center; }
+.sl-lbl { font-size: .62rem; font-weight: 600; color: var(--txt3); text-transform: uppercase; letter-spacing: .5px; }
+.sl-val { font-family: var(--mono); font-size: .7rem; color: var(--cyan); }
+input[type=range] { -webkit-appearance: none; width: 100%; height: 3px; background: #1f2937; border-radius: 2px; outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; cursor: pointer; }
+input[type=range].c::-webkit-slider-thumb { background: var(--cyan); }
+input[type=range].g::-webkit-slider-thumb { background: var(--green); }
+input[type=range].a::-webkit-slider-thumb { background: var(--amber); }
+input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
+
+/* legend & canvas */
+.legend-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .85rem; }
+.legend-item { display: flex; align-items: flex-start; gap: .5rem; padding: .35rem 0; border-bottom: 1px solid var(--border); }
+.legend-item:last-child { border-bottom: none; }
+.ldot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+.lname { font-size: .7rem; font-weight: 700; color: var(--txt); margin-bottom: 1px; }
+.ldef { font-size: .7rem; color: var(--txt2); line-height: 1.5; }
+.ldef b { color: var(--cyan); font-weight: 600; }
+
+.canvas-area { position: relative; overflow: hidden; background: #050709; width: 100%; height: 100%; }
+#lab-cv { display: block; width: 100%; height: 100%; touch-action: none; }
+.hud { position: absolute; inset: 0; pointer-events: none; padding: .8rem; padding-top: calc(56px + .8rem); display: flex; flex-direction: column; justify-content: space-between; }
+.hud-top { display: flex; justify-content: space-between; }
+.hud-chip { font-family: var(--mono); font-size: .56rem; color: rgba(34,211,238,.5); background: rgba(0,0,0,.6); border: 1px solid rgba(34,211,238,.12); padding: 3px 10px; border-radius: 20px; }
+.hud-bot { text-align: center; font-size: .62rem; color: var(--txt3); }
+
+#tip { position: fixed; background: rgba(13,17,23,.97); border: 1px solid var(--border2); border-radius: 8px; padding: .55rem .8rem; font-size: .7rem; color: var(--txt); pointer-events: none; z-index: 9000; max-width: 210px; line-height: 1.6; display: none; box-shadow: 0 8px 30px rgba(0,0,0,.6); }
+#tip strong { color: var(--cyan); }
+#tip em { color: var(--amber); font-style: normal; }
+
+/* meters & info boxes */
+.meters { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.meter { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .55rem; text-align: center; position: relative; overflow: hidden; }
+.meter::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+.mc::after { background: var(--cyan); } .mg::after { background: var(--green); } .ma::after { background: var(--amber); } .mp::after { background: var(--purple); }
+.m-lbl { font-size: .52rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: .5px; }
+.m-val { font-family: var(--mono); font-size: 1rem; line-height: 1.25; font-weight: 700; }
+.mc .m-val { color: var(--cyan); } .mg .m-val { color: var(--green); } .ma .m-val { color: var(--amber); } .mp .m-val { color: var(--purple); }
+.m-unit { font-size: .5rem; color: var(--txt3); }
+
+.fbox, .exbox, .gbox { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .85rem; }
+.fbox-lbl, .exbox-lbl, .gbox-lbl { font-size: .58rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .45rem; }
+.fbox-eq { font-family: var(--mono); font-size: .7rem; color: var(--amber); line-height: 1.8; white-space: pre-line; margin-bottom: .45rem; }
+.fbox-res { background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.2); border-radius: 6px; padding: .45rem; font-family: var(--mono); font-size: .88rem; color: var(--green); text-align: center; font-weight: 700; white-space: pre-line; }
+
+.exbox-body { font-size: .8rem; color: var(--txt2); line-height: 1.7; }
+.exbox-body strong { color: var(--txt); font-weight: 600; }
+.exstep { display: flex; gap: .45rem; margin-top: .4rem; padding-top: .4rem; border-top: 1px solid var(--border); font-size: .78rem; color: var(--txt2); line-height: 1.55; }
+.eico { flex-shrink: 0; font-size: .9rem; padding-top: 1px; }
+
+#g-cv { width: 100%; height: 100px; display: block; margin-top: .35rem;}
+
+.btn-p { width: 100%; padding: .6rem; background: none; border: 1.5px solid var(--cyan); border-radius: 8px; color: var(--cyan); font-size: .75rem; font-weight: 700; cursor: pointer; transition: all .18s; letter-spacing: .5px; }
+.btn-p:hover { background: var(--cyan); color: var(--bg); }
+.btn-s { width: 100%; padding: .5rem; background: none; border: 1px solid var(--border2); border-radius: 8px; color: var(--txt2); font-size: .75rem; font-weight: 500; cursor: pointer; transition: all .18s; margin-top: 4px; }
+.btn-s:hover { border-color: var(--txt); color: var(--txt); }
+
+/* ── REAL LIFE ── */
+.rl-tabs { display: flex; gap: 3px; border-bottom: 1px solid var(--border); margin-bottom: 2rem; overflow-x: auto; scrollbar-width: none; }
+.rl-tabs::-webkit-scrollbar { display: none; }
+.rl-tab { padding: .55rem 1.1rem; border-radius: 6px 6px 0 0; cursor: pointer; border: none; background: none; color: var(--txt2); font-size: .82rem; font-weight: 500; transition: all .15s; border-bottom: 2px solid transparent; white-space: nowrap; }
+.rl-tab:hover { color: var(--txt); }
+.rl-tab.on { color: var(--cyan); border-bottom-color: var(--cyan); }
+.rl-panel { display: none; }
+.rl-panel.on { display: block; }
+
+.big-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 1.5rem; }
+.big-card-top { padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+@media(max-width:768px) { .big-card-top { grid-template-columns: 1fr; } }
+.big-card-story h2 { font-size: 1.5rem; font-weight: 800; color: var(--txt); margin-bottom: .3rem; line-height: 1.2; }
+.big-card-story .tag { display: inline-block; background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.2); color: var(--cyan); font-size: .7rem; font-weight: 600; padding: .2rem .7rem; border-radius: 20px; margin-bottom: .75rem; }
+.big-card-story p { font-size: .9rem; color: var(--txt2); line-height: 1.75; margin-bottom: .8rem; }
+.big-card-story p strong { color: var(--txt); font-weight: 600; }
+
+.big-card-sim { display: flex; flex-direction: column; gap: .75rem; }
+.sim-vis { width: 100%; border-radius: 10px; overflow: hidden; background: #050709; border: 1px solid var(--border); }
+.sim-vis canvas { display: block; width: 100%; }
+.sim-ctrl { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .9rem; }
+.sim-ctrl h4 { font-size: .8rem; font-weight: 700; color: var(--txt); margin-bottom: .6rem; }
+.ctrl-row { margin-bottom: .6rem; }
+.ctrl-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+.ctrl-lbl { font-size: .72rem; font-weight: 500; color: var(--txt2); }
+.ctrl-val { font-family: var(--mono); font-size: .72rem; font-weight: 700; color: var(--amber); }
+.result-badge { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.25); border-radius: 8px; padding: .65rem .9rem; display: flex; align-items: center; justify-content: space-between; margin-top: .2rem; }
+.rb-label { font-size: .72rem; color: var(--txt2); font-weight: 500; }
+.rb-value { font-family: var(--mono); font-size: 1.05rem; font-weight: 800; color: var(--green); }
+.rb-note { font-size: .7rem; color: var(--txt2); margin-top: .4rem; line-height: 1.5; background: rgba(255,255,255,.03); padding: .5rem; border-radius: 6px; }
+
+/* ── THEORY & CALC ── */
+.th-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.th-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; position: relative; overflow: hidden; }
+.th-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+.tc-c::before { background: var(--cyan); } .tc-g::before { background: var(--green); } .tc-a::before { background: var(--amber); } .tc-p::before { background: var(--purple); }
+.th-h { font-size: 1.1rem; font-weight: 800; margin-bottom: .8rem; }
+.tc-c .th-h { color: var(--cyan); } .tc-g .th-h { color: var(--green); } .tc-a .th-h { color: var(--amber); } .tc-p .th-h { color: var(--purple); }
+.th-simple { font-size: .95rem; color: var(--txt); line-height: 1.7; margin-bottom: .9rem; font-weight: 500; background: var(--card); border-radius: 8px; padding: .75rem; }
+.th-formula { background: var(--bg); border-radius: 8px; padding: .8rem; font-family: var(--mono); font-size: .8rem; color: var(--amber); text-align: center; margin: .6rem 0; border-left: 3px solid var(--amber); line-height: 1.9; }
+
+.calc-card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.calc-hd { background: var(--card); padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.calc-body { padding: 1.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media(max-width:600px) { .calc-body { grid-template-columns: 1fr; } }
+.fg { display: flex; flex-direction: column; gap: 4px; }
+.fl { font-size: .7rem; font-weight: 600; color: var(--txt3); text-transform: uppercase; letter-spacing: .5px; }
+.fi { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: .6rem .7rem; font-size: .85rem; color: var(--txt); width: 100%; outline: none; transition: border-color .15s; font-family: var(--mono); }
+.fi:focus { border-color: var(--cyan); }
+.calc-go { grid-column: 1/-1; padding: .8rem; background: var(--cyan); border: none; border-radius: 8px; color: var(--bg); font-size: .9rem; font-weight: 800; cursor: pointer; transition: opacity .15s; letter-spacing: .5px; }
+
+/* ── RESPONSIVE OVERRIDES ── */
+@media(max-width:900px) { 
+  #pg-lab.on { display: flex; flex-direction: column; height: auto; overflow: auto; padding-top: 56px; } 
+  .lbar, .rbar { width: 100%; border: none; padding: 1rem; padding-top: 1rem; }
+  .canvas-area { height: 45vh; min-height: 350px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .hud { padding-top: .8rem; }
+  .th-grid { grid-template-columns: 1fr; } 
+}
+@media(max-width:600px) { 
+  .hero-h1 { font-size: 2.2rem; } 
+  .logo span { display: none; } /* Ahorrar espacio en barra superior */
+  nav { padding: 0 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">⚗ PropColigativas <span>Lab</span></div>
+  <div class="ntabs">
+    <button class="ntab on"  onclick="goPage('home')">Inicio</button>
+    <button class="ntab"     onclick="goPage('lab')">Simulación</button>
+    <button class="ntab"     onclick="goPage('real')">Vida Real</button>
+    <button class="ntab"     onclick="goPage('theory')">Teoría</button>
+    <button class="ntab"     onclick="goPage('calc')">Calculadora</button>
+  </div>
+</nav>
+
+<div class="page on" id="pg-home">
+  <div class="hero-tag">🔬 Aprende química sin complicarte</div>
+  <h1 class="hero-h1">¿Qué pasa cuando<br><em>disuelves algo en agua?</em></h1>
+  <p class="hero-p">Cuando añades sal, azúcar u otras sustancias al agua, cambias sus propiedades físicas. El agua ya no congela igual, no hierve igual y se mueve distinto. Esto se llama <strong style="color:var(--cyan)">propiedades coligativas</strong>.</p>
+  <div class="cards4">
+    <div class="hcard" onclick="goPage('lab');setExp('osmotica')">
+      <div class="hcard-icon">🔬</div>
+      <div class="hcard-name">Presión Osmótica</div>
+      <div class="hcard-tag">Π = i·M·R·T</div>
+    </div>
+    <div class="hcard" onclick="goPage('lab');setExp('crioscopia')">
+      <div class="hcard-icon">🧊</div>
+      <div class="hcard-name">Descenso Crioscópico</div>
+      <div class="hcard-tag">ΔTf = Kf·m·i</div>
+    </div>
+    <div class="hcard" onclick="goPage('lab');setExp('ebullioscopia')">
+      <div class="hcard-icon">♨️</div>
+      <div class="hcard-name">Elevación Ebulloscópica</div>
+      <div class="hcard-tag">ΔTb = Kb·m·i</div>
+    </div>
+    <div class="hcard" onclick="goPage('lab');setExp('vapor')">
+      <div class="hcard-icon">💨</div>
+      <div class="hcard-name">Presión de Vapor</div>
+      <div class="hcard-tag">P = χ₁·P°</div>
+    </div>
+  </div>
+  <div class="row-btns">
+    <button class="btn-out" onclick="goPage('lab')">🔬 Abrir simulación</button>
+    <button class="btn-out" onclick="goPage('real')">🚗 Ver ejemplos reales</button>
+  </div>
+</div>
+
+<div class="page" id="pg-lab">
+  <div class="lbar">
+    <div class="bar-title">Experimento</div>
+    <div style="display:flex;flex-direction:column;gap:3px">
+      <button class="expbtn on" id="eb-osmotica"     onclick="setExp('osmotica')">
+        <div class="expbtn-ico" style="background:rgba(34,211,238,.1)">🔬</div>
+        <div><div class="expbtn-n">Presión Osmótica</div><div class="expbtn-s">Π = iMRT</div></div>
+      </button>
+      <button class="expbtn" id="eb-crioscopia"      onclick="setExp('crioscopia')">
+        <div class="expbtn-ico" style="background:rgba(186,230,253,.1)">🧊</div>
+        <div><div class="expbtn-n">Descenso Crioscópico</div><div class="expbtn-s">ΔTf = Kf·m·i</div></div>
+      </button>
+      <button class="expbtn" id="eb-ebullioscopia"   onclick="setExp('ebullioscopia')">
+        <div class="expbtn-ico" style="background:rgba(245,158,11,.1)">♨️</div>
+        <div><div class="expbtn-n">Elevación Ebulloscópica</div><div class="expbtn-s">ΔTb = Kb·m·i</div></div>
+      </button>
+      <button class="expbtn" id="eb-vapor"           onclick="setExp('vapor')">
+        <div class="expbtn-ico" style="background:rgba(167,139,250,.1)">💨</div>
+        <div><div class="expbtn-n">Presión de Vapor</div><div class="expbtn-s">P₁ = χ₁·P°₁</div></div>
+      </button>
+    </div>
+
+    <div class="bar-title">Sustancia disuelta</div>
+    <div class="cmps">
+      <button class="cmp on" onclick="setCmp('NaCl',2,58.44)"    data-c="NaCl">NaCl<br><small style="color:var(--txt3)">Sal común</small></button>
+      <button class="cmp"    onclick="setCmp('CaCl₂',3,111.0)"   data-c="CaCl₂">CaCl₂<br><small style="color:var(--txt3)">Sal potente</small></button>
+      <button class="cmp"    onclick="setCmp('Glucosa',1,180.16)" data-c="Glucosa">Glucosa<br><small style="color:var(--txt3)">Azúcar</small></button>
+      <button class="cmp"    onclick="setCmp('Sacarosa',1,342.3)" data-c="Sacarosa">Sacarosa<br><small style="color:var(--txt3)">Azúcar mesa</small></button>
+    </div>
+
+    <div class="bar-title">Ajustar variables</div>
+    <div style="display:flex;flex-direction:column;gap:.55rem">
+      <div class="sl-wrap">
+        <div class="sl-row"><span class="sl-lbl">Cantidad (molalidad)</span><span class="sl-val" id="v-m">1.00</span></div>
+        <input type="range" class="g" id="sl-m" min="0.1" max="5" step="0.05" value="1" oninput="onSl('m',this.value)">
+      </div>
+      <div class="sl-wrap">
+        <div class="sl-row"><span class="sl-lbl">Concentración (molaridad)</span><span class="sl-val" id="v-M">1.00</span></div>
+        <input type="range" class="c" id="sl-M" min="0.1" max="5" step="0.05" value="1" oninput="onSl('M',this.value)">
+      </div>
+      <div class="sl-wrap">
+        <div class="sl-row"><span class="sl-lbl">Temperatura (°C)</span><span class="sl-val" id="v-T">25</span></div>
+        <input type="range" class="a" id="sl-T" min="0" max="100" step="1" value="25" oninput="onSl('T',this.value)">
+      </div>
+    </div>
+    
+    <div style="margin-top: auto;">
+      <button class="btn-s" onclick="resetSim()">↺ Reiniciar simulación</button>
+    </div>
+  </div>
+
+  <div class="canvas-area">
+    <canvas id="lab-cv"></canvas>
+    <div class="hud">
+      <div class="hud-top">
+        <span class="hud-chip" id="exp-chip">PRESIÓN OSMÓTICA</span>
+      </div>
+      <div class="hud-bot" id="ptip-chip">Toca las partículas para ver qué son</div>
+    </div>
+  </div>
+
+  <div class="rbar">
+    <div class="bar-title">Resultados</div>
+    <div class="meters">
+      <div class="meter mc"><div class="m-lbl">P. osmótica</div><div class="m-val" id="m-pi">—</div><div class="m-unit">atm</div></div>
+      <div class="meter mg"><div class="m-lbl">T. Congelación</div><div class="m-val" id="m-dtf">—</div><div class="m-unit">°C</div></div>
+      <div class="meter ma"><div class="m-lbl">T. Ebullición</div><div class="m-val" id="m-dtb">—</div><div class="m-unit">°C</div></div>
+      <div class="meter mp"><div class="m-lbl">Baja P. vapor</div><div class="m-val" id="m-dp">—</div><div class="m-unit">%</div></div>
+    </div>
+
+    <div class="fbox">
+      <div class="fbox-lbl">Fórmula activa</div>
+      <div class="fbox-eq" id="fbox-eq">—</div>
+      <div class="fbox-res" id="fbox-res">—</div>
+    </div>
+
+    <div class="exbox">
+      <div class="exbox-lbl">Explicación</div>
+      <div class="exbox-body" id="explain">Selecciona un experimento arriba.</div>
+    </div>
+
+    <div class="gbox">
+      <div class="gbox-lbl">Cantidad disuelta → Efecto</div>
+      <canvas id="g-cv"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pg-real">
+  <div class="wrap">
+    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.3rem">En la vida real</h2>
+    <p style="color:var(--txt2);font-size:.95rem;margin-bottom:1.5rem;max-width:600px">Estos fenómenos químicos tienen aplicaciones directas en nuestro día a día.</p>
+
+    <div class="rl-tabs">
+      <button class="rl-tab on" onclick="rlTab('anticongelante',this)">🚗 Anticongelante</button>
+      <button class="rl-tab"    onclick="rlTab('carretera',this)">🧂 Sal en carreteras</button>
+      <button class="rl-tab"    onclick="rlTab('lixiviados',this)">🏭 Ósmosis Lixiviados</button>
+    </div>
+
+    <div class="rl-panel on" id="rl-anticongelante">
+      <div class="big-card">
+        <div class="big-card-top">
+          <div class="big-card-story">
+            <div class="tag">🧊 Descenso crioscópico</div>
+            <h2>¿Por qué los coches no se congelan en invierno?</h2>
+            <p>El motor de un coche necesita líquido para enfriarse. Si usamos solo agua, esta se congela a 0°C. Al congelarse, el hielo se expande y puede reventar el bloque del motor.</p>
+            <p>Añadimos <strong>anticongelante (etilenglicol)</strong>. Al disolverse en el agua, impide que las moléculas de H₂O formen la estructura cristalina del hielo a 0°C. Al ajustar el porcentaje, logramos que el líquido resista temperaturas de hasta -40°C sin solidificarse.</p>
+          </div>
+          <div class="big-card-sim">
+            <div class="sim-vis"><canvas id="cv-anti" height="220"></canvas></div>
+            <div class="sim-ctrl">
+              <h4>🎛️ Mezcla del circuito</h4>
+              <div class="ctrl-row">
+                <div class="ctrl-head"><span class="ctrl-lbl">% de anticongelante en agua</span><span class="ctrl-val" id="anti-pct-v">40%</span></div>
+                <input type="range" class="g" min="0" max="65" step="1" value="40" oninput="antiUpdate(this.value)">
+              </div>
+              <div class="result-badge">
+                <span class="rb-label">El líquido congela a:</span>
+                <span class="rb-value" id="anti-result">—</span>
+              </div>
+              <div class="rb-note" id="anti-note">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rl-panel" id="rl-carretera">
+      <div class="big-card">
+        <div class="big-card-top">
+          <div class="big-card-story">
+            <div class="tag" style="background:rgba(186,230,253,.1);border-color:rgba(186,230,253,.25);color:var(--ice)">🧊 Descenso crioscópico</div>
+            <h2>Sal para derretir el hielo en calzadas</h2>
+            <p>La sal no "calienta" el hielo. Al disolverse en la fina capa de humedad que hay sobre la carretera helada, crea una solución de agua salada cuyo punto de congelación es muy inferior a 0°C, haciendo que el hielo se funda.</p>
+            <p><strong>Uso en la vida cotidiana:</strong><br>
+            • <strong>NaCl (Sal común):</strong> Se usa por defecto. Es barata y efectiva hasta los -9°C aproximadamente. Al disolverse genera 2 partículas (Na⁺ y Cl⁻).<br>
+            • <strong>CaCl₂ (Cloruro de calcio):</strong> Se usa en situaciones extremas. Genera 3 partículas, por lo que su efecto coligativo es mucho mayor y puede derretir hielo hasta a -30°C.</p>
+          </div>
+          <div class="big-card-sim">
+            <div class="sim-vis"><canvas id="cv-road" height="220"></canvas></div>
+            <div class="sim-ctrl">
+              <h4>🎛️ Echar sal al asfalto</h4>
+              <div class="ctrl-row">
+                <div class="ctrl-head"><span class="ctrl-lbl">Gramos de sal (por 100g de agua)</span><span class="ctrl-val" id="road-g-v">20g</span></div>
+                <input type="range" class="c" min="1" max="35" step="0.5" value="20" oninput="roadUpdate('g',this.value)">
+              </div>
+              <div class="ctrl-row">
+                <div class="ctrl-head"><span class="ctrl-lbl">Tipo de sal</span><span class="ctrl-val" id="road-salt-v">NaCl</span></div>
+                <div style="display:flex;gap:4px;margin-top:4px">
+                  <button class="cmp on" id="rs-nacl"  onclick="roadSalt('NaCl',2,58.44)"  style="flex:1;font-size:.7rem;padding:.5rem">NaCl (Uso general)</button>
+                  <button class="cmp"    id="rs-cacl2" onclick="roadSalt('CaCl₂',3,111.0)" style="flex:1;font-size:.7rem;padding:.5rem">CaCl₂ (Hielo extremo)</button>
+                </div>
+              </div>
+              <div class="result-badge">
+                <span class="rb-label">Funde el hielo hasta:</span>
+                <span class="rb-value" id="road-result">—</span>
+              </div>
+              <div class="rb-note" id="road-note">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rl-panel" id="rl-lixiviados">
+      <div class="big-card">
+        <div class="big-card-top">
+          <div class="big-card-story">
+            <div class="tag" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.25);color:var(--purple)">🔬 Presión osmótica</div>
+            <h2>Limpiar aguas muy tóxicas (Lixiviados)</h2>
+            <p>Los vertederos generan "lixiviado", un líquido oscuro cargado de contaminantes y sales. Para purificarlo y no contaminar el medio ambiente, se usan plantas de <strong>Ósmosis Inversa</strong>.</p>
+            <p>La ósmosis natural haría que el agua limpia fluyera hacia la sucia para diluirla. Para revertir esto, las bombas industriales deben aplicar una presión hidráulica <strong>mayor que la presión osmótica natural (Π)</strong> del lixiviado. Cuanto más concentrada esté la suciedad, más presión (y energía) se requiere para empujar el agua limpia a través de los filtros.</p>
+          </div>
+          <div class="big-card-sim">
+            <div class="sim-vis"><canvas id="cv-leach" height="220"></canvas></div>
+            <div class="sim-ctrl">
+              <h4>🎛️ Planta de filtrado</h4>
+              <div class="ctrl-row">
+                <div class="ctrl-head"><span class="ctrl-lbl">Concentración de tóxicos (g/L)</span><span class="ctrl-val" id="leach-c-v">20 g/L</span></div>
+                <input type="range" class="p" min="1" max="80" step="1" value="20" oninput="leachUpdate(this.value)">
+              </div>
+              <div class="result-badge">
+                <span class="rb-label">Presión Osmótica Natural (Π):</span>
+                <span class="rb-value" id="leach-result">—</span>
+              </div>
+              <div class="rb-note" id="leach-note">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pg-theory">
+  <div class="wrap">
+    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.3rem">Teoría y Fórmulas</h2>
+    <div class="th-grid">
+      <div class="th-card tc-c">
+        <div class="th-h">🔬 Presión Osmótica</div>
+        <div class="th-formula">Π = i · M · R · T</div>
+        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Presión necesaria para detener el flujo de solvente puro hacia la solución a través de una membrana semipermeable. A mayor temperatura o concentración, mayor presión.</p>
+      </div>
+      <div class="th-card tc-g">
+        <div class="th-h">🧊 Descenso Crioscópico</div>
+        <div class="th-formula">ΔTf = Kf · m · i</div>
+        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Redución del punto de congelación del solvente. El soluto estorba la cristalización del líquido. Constante del agua: Kf = 1.86 °C·kg/mol.</p>
+      </div>
+      <div class="th-card tc-a">
+        <div class="th-h">♨️ Elevación Ebulloscópica</div>
+        <div class="th-formula">ΔTb = Kb · m · i</div>
+        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Aumento del punto de ebullición. Las moléculas disueltas reducen la presión de vapor, exigiendo más calor para hervir. Kb del agua = 0.512 °C·kg/mol.</p>
+      </div>
+      <div class="th-card tc-p">
+        <div class="th-h">💨 Presión de Vapor</div>
+        <div class="th-formula">P = χ₁ · P°</div>
+        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Ley de Raoult. Al añadir soluto, hay menos moléculas de disolvente en la superficie, por lo que escapan menos a la fase gaseosa.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pg-calc">
+  <div class="wrap">
+    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.3rem">Calculadora</h2>
+    <div class="calc-card">
+      <div class="calc-hd"><h3>⚗️ Calculadora Coligativa</h3></div>
+      <div class="calc-body">
+        <div class="fg"><label class="fl">Sustancia disuelta</label>
+          <select class="fi" id="c-sol">
+            <option value="NaCl|2|58.44">Sal común — NaCl (i=2)</option>
+            <option value="CaCl2|3|111.0">Cloruro de calcio — CaCl₂ (i=3)</option>
+            <option value="C6H12O6|1|180.16">Glucosa (i=1)</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Solvente</label>
+          <select class="fi" id="c-solv">
+            <option value="agua|1.86|0.512|0|100|18.015">Agua</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Masa soluto (g)</label><input class="fi" type="number" id="c-ms" value="10" step="0.1"></div>
+        <div class="fg"><label class="fl">Masa solvente (g)</label><input class="fi" type="number" id="c-mv" value="100" step="0.1"></div>
+        <div class="fg"><label class="fl">Temperatura (°C)</label><input class="fi" type="number" id="c-T" value="25" step="0.1"></div>
+        <button class="calc-go" onclick="doCalc()">⚡ Calcular</button>
+      </div>
+      <div style="padding: 1rem 1.4rem; background: var(--bg)" id="calc-out">...</div>
+    </div>
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  Core State
+// ═══════════════════════════════════════════════════════
+const RG = 0.08206;
+const S = { exp:'osmotica', cmp:{name:'NaCl',i:2,M:58.44}, m:1, Mo:1, T:25, i:2, tick:0 };
+const RL = {
+  anti: { pct:40 },
+  road: { g:20, saltName:'NaCl', saltI:2, saltM:58.44 },
+  leach: { c:20 }
+};
+
+// ── Navigation ─────────────────────────────────────────
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
+  document.getElementById('pg-' + id).classList.add('on');
+  
+  const labels = { home:'Inicio', lab:'Simulación', real:'Vida Real', theory:'Teoría', calc:'Calculadora' };
+  document.querySelectorAll('.ntab').forEach(t => { if (t.textContent.trim() === labels[id]) t.classList.add('on'); });
+  window.scrollTo(0,0);
+  
+  if (id === 'lab') initLab();
+  if (id === 'real') initRealLife();
+}
+
+// ── Lab Controls ───────────────────────────────────────
+function setExp(e) {
+  S.exp = e;
+  document.querySelectorAll('.expbtn').forEach(b => b.classList.remove('on'));
+  const btn = document.getElementById('eb-' + e);
+  if (btn) btn.classList.add('on');
+  const names = { osmotica:'PRESIÓN OSMÓTICA', crioscopia:'DESCENSO CRIOSCÓPICO', ebullioscopia:'ELEVACIÓN EBULLOSCÓPICA', vapor:'PRESIÓN DE VAPOR' };
+  document.getElementById('exp-chip').textContent = names[e];
+  spawnP(); refreshPanel();
+}
+
+function setCmp(name, i, M) {
+  S.cmp = { name, i, M }; S.i = i;
+  document.querySelectorAll('.cmp').forEach(b => b.classList.toggle('on', b.dataset.c === name));
+  spawnP(); refreshPanel();
+}
+
+function onSl(k, v) {
+  const f = parseFloat(v);
+  if (k === 'm') { S.m = f; document.getElementById('v-m').textContent = f.toFixed(2); }
+  if (k === 'M') { S.Mo = f; document.getElementById('v-M').textContent = f.toFixed(2); }
+  if (k === 'T') { S.T = f; document.getElementById('v-T').textContent = f.toFixed(1); }
+  
+  spawnP(); // Fix: Visual update immediately
+  refreshPanel();
+}
+
+function resetSim() {
+  S.tick = 0; ptick = 0; spawnP(); refreshPanel();
+}
+
+function calcAll() {
+  const { m, Mo, T, i } = S, Tk = T + 273.15;
+  const dtf = 1.86 * m * i;
+  const dtb = 0.512 * m * i;
+  const pi  = i * Mo * RG * Tk;
+  const xB  = (m * 0.018015) / (1 + m * 0.018015);
+  const dpp = xB * i * 100;
+  return { dtf, dtb, pi, dpp };
+}
+
+function refreshPanel() {
+  const { dtf, dtb, pi, dpp } = calcAll();
+  const { m, Mo, T, i } = S, Tk = (T + 273.15).toFixed(1);
+  
+  document.getElementById('m-pi').textContent  = pi.toFixed(2);
+  document.getElementById('m-dtf').textContent = (0-dtf).toFixed(2);
+  document.getElementById('m-dtb').textContent = (100+dtb).toFixed(2);
+  document.getElementById('m-dp').textContent  = dpp.toFixed(2);
+
+  const eqs = {
+    osmotica:     { eq:`Π = i × M × R × T\n= ${i} × ${Mo.toFixed(2)} × 0.082 × ${Tk}`, res:`Π = ${pi.toFixed(2)} atm` },
+    crioscopia:   { eq:`ΔTf = Kf × m × i\n= 1.86 × ${m.toFixed(2)} × ${i}`,          res:`ΔTf = ${dtf.toFixed(2)} °C` },
+    ebullioscopia:{ eq:`ΔTb = Kb × m × i\n= 0.512 × ${m.toFixed(2)} × ${i}`,         res:`ΔTb = ${dtb.toFixed(2)} °C` },
+    vapor:        { eq:`ΔP/P° = χ_soluto × i × 100`,                                 res:`Disminución = ${dpp.toFixed(2)} %` }
+  };
+  document.getElementById('fbox-eq').textContent = eqs[S.exp].eq;
+  document.getElementById('fbox-res').textContent = eqs[S.exp].res;
+
+  const expl = {
+    osmotica: `<strong>El agua pura busca diluir la sal:</strong> El líquido atraviesa la membrana central hacia la derecha para igualar concentraciones. A mayor molaridad (M), mayor presión (atm) ejerce este flujo.`,
+    crioscopia: `<strong>El hielo necesita orden:</strong> Las moléculas disueltas estorban la formación de cristales de hielo. Por eso necesitas mucha más temperatura negativa para congelar el líquido. El bloque inferior ilustra el hielo puro formándose.`,
+    ebullioscopia: `<strong>Hervir cuesta más:</strong> Las partículas disueltas atrapan el agua, dificultando que salte a estado gaseoso. Fíjate cómo al subir la concentración baja la cantidad de burbujas hasta que aplicas más temperatura.`,
+    vapor: `<strong>Superficie ocupada:</strong> El soluto ocupa espacio en la interfaz líquido/aire, dejando menos "ventanas" para que el agua escape. Menos vapor arriba significa menor presión de vapor.`
+  };
+  document.getElementById('explain').innerHTML = expl[S.exp];
+  drawGraph();
+}
+
+// ── Canvas Lab System ───────────────────────────────────
+let cvs, ctx, RAF, particles = [], ptick = 0;
+
+function getZone(W, H) {
+  if (S.exp === 'osmotica') return { type:'utube', lx:W*.1, rx:W*.55, top:H*.2, bot:H*.9, cw:W*.35, mem:W/2 };
+  if (S.exp === 'crioscopia') return { type:'beaker', x:W*.2, y:H*.15, w:W*.6, h:H*.7 };
+  if (S.exp === 'ebullioscopia') return { type:'flask', fx:W*.2, fy:H*.1, fw:W*.6, fh:H*.75, nkX:W*.4, nkW:W*.2, nkH:H*.3 };
+  return { type:'closed', x:W*.2, y:H*.1, w:W*.6, h:H*.7, surfY:H*.45, lx:W*.2+4, ly:H*.45, lw:W*.6-8, lh:H*.65-H*.45 };
+}
+
+function initLab() {
+  if (RAF) cancelAnimationFrame(RAF);
+  cvs = document.getElementById('lab-cv');
+  ctx = cvs.getContext('2d');
+  
+  function resize() {
+    cvs.width = cvs.parentElement.clientWidth;
+    cvs.height = cvs.parentElement.clientHeight;
+    spawnP();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Mobile-friendly touch & mouse events for tooltip
+  const handlePointer = (e) => {
+    const rect = cvs.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    let found = particles.find(p => Math.hypot(p.x - x, p.y - y) < p.r + 10);
+    const tt = document.getElementById('tip');
+    if (found) {
+      tt.innerHTML = found.type === 'solvent' ? '💧 H₂O pura' : '🟣 Soluto/Ion';
+      tt.style.display = 'block';
+      tt.style.left = (e.touches ? e.touches[0].clientX : e.clientX) + 10 + 'px';
+      tt.style.top = (e.touches ? e.touches[0].clientY : e.clientY) - 10 + 'px';
+    } else {
+      tt.style.display = 'none';
+    }
+  };
+  cvs.onmousemove = handlePointer;
+  cvs.ontouchstart = handlePointer;
+  cvs.onmouseleave = () => document.getElementById('tip').style.display = 'none';
+
+  RAF = requestAnimationFrame(loop);
+}
+
+function spawnP() {
+  if (!cvs) return;
+  particles = [];
+  const W = cvs.width, H = cvs.height, z = getZone(W, H);
+  // Cap particles to avoid lag
+  const nS = Math.min(60, Math.max(5, Math.round(S.Mo * 15))); 
+  const nW = 50; 
+  const isIon = S.i > 1;
+  const rnd = (a,b) => a+Math.random()*(b-a);
+  
+  const addP = (x, y, t, s, col) => particles.push({ x, y, vx:(Math.random()-.5), vy:(Math.random()-.5), r:t==='solvent'?3:5, type:t, side:s, color:col, a:1 });
+
+  if (z.type === 'utube') {
+    for (let i=0; i<nW; i++) addP(rnd(z.lx+5,z.lx+z.cw-5), rnd(z.top,z.bot), 'solvent', 'left', '#22d3ee');
+    for (let i=0; i<nS; i++) addP(rnd(z.rx+5,z.rx+z.cw-5), rnd(z.top,z.bot), 'solute', 'right', isIon?(i%2===0?'#ef4444':'#10b981'):'#f59e0b');
+    for (let i=0; i<nW*.3; i++) addP(rnd(z.rx+5,z.rx+z.cw-5), rnd(z.top,z.bot), 'solvent', 'right', '#22d3ee');
+  } else {
+    let bx = z.x||z.fx, by = z.y||z.fy, bw = z.w||z.fw, bh = z.h||z.fh;
+    if(z.type==='flask') { by += z.nkH; bh -= z.nkH; }
+    for (let i=0; i<nW; i++) addP(rnd(bx+10,bx+bw-10), rnd(by+20,by+bh-10), 'solvent', '', '#22d3ee');
+    for (let i=0; i<nS; i++) addP(rnd(bx+10,bx+bw-10), rnd(by+20,by+bh-10), 'solute', '', isIon?(i%2===0?'#ef4444':'#10b981'):'#f59e0b');
+  }
+}
+
+function loop() {
+  RAF = requestAnimationFrame(loop);
+  ptick++; S.tick++;
+  const W = cvs.width, H = cvs.height, z = getZone(W, H);
+  ctx.clearRect(0,0,W,H);
+  
+  // Background
+  const bg = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,W*.8);
+  bg.addColorStop(0,'#080d14'); bg.addColorStop(1,'#040609');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  
+  drawVessel(z);
+  
+  // Dynamics
+  const ms = 0.5 + S.T * 0.02; 
+  particles.forEach(p => {
+    p.x += p.vx * ms; p.y += p.vy * ms;
+    // Bounce logic simple
+    if (z.type === 'utube') {
+      if (p.side==='left' && p.x > z.mem-p.r) { p.x=z.mem-p.r; p.vx*=-1; }
+      if (p.side==='right' && p.x < z.mem+p.r) { p.x=z.mem+p.r; p.vx*=-1; }
+      if (p.y > z.bot-p.r) { p.y=z.bot-p.r; p.vy*=-1; }
+      if (p.y < z.top+p.r) { p.y=z.top+p.r; p.vy*=-1; }
+      if (p.side==='left' && p.x < z.lx+p.r) { p.x=z.lx+p.r; p.vx*=-1; }
+      if (p.side==='right' && p.x > z.rx+z.cw-p.r) { p.x=z.rx+z.cw-p.r; p.vx*=-1; }
+    } else {
+      let bx=z.x||z.fx, by=z.y||z.fy, bw=z.w||z.fw, bh=z.h||z.fh;
+      if (z.type==='flask'){ by+=z.nkH; bh-=z.nkH; }
+      if (p.x < bx+p.r) { p.x=bx+p.r; p.vx*=-1; }
+      if (p.x > bx+bw-p.r) { p.x=bx+bw-p.r; p.vx*=-1; }
+      if (p.y > by+bh-p.r) { p.y=by+bh-p.r; p.vy*=-1; }
+      if (p.y < by+p.r) { p.y=by+p.r; p.vy*=-1; }
+    }
+    
+    // Draw particle
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = p.color; ctx.shadowBlur = 4; ctx.shadowColor = p.color;
+    ctx.fill(); ctx.shadowBlur = 0;
+  });
+}
+
+function drawVessel(z) {
+  ctx.strokeStyle='rgba(34,211,238,.3)'; ctx.lineWidth=2;
+  if(z.type==='utube'){
+    ctx.strokeRect(z.lx, z.top, z.cw, z.bot-z.top);
+    ctx.strokeRect(z.rx, z.top, z.cw, z.bot-z.top);
+    ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(z.mem,z.top); ctx.lineTo(z.mem,z.bot); ctx.stroke(); ctx.setLineDash([]);
+  } else if (z.type==='beaker'){
+    ctx.strokeRect(z.x, z.y, z.w, z.h);
+    const {dtf} = calcAll();
+    const iceH = Math.min(z.h*.4, dtf*20);
+    ctx.fillStyle='rgba(186,230,253,.2)'; ctx.fillRect(z.x, z.y+z.h-iceH, z.w, iceH);
+  } else if (z.type==='flask'){
+    ctx.strokeRect(z.fx, z.fy+z.nkH, z.fw, z.fh-z.nkH);
+    ctx.strokeRect(z.nkX, z.fy, z.nkW, z.nkH);
+  } else {
+    ctx.strokeRect(z.x, z.y, z.w, z.h);
+    ctx.fillStyle='rgba(59,130,246,.1)'; ctx.fillRect(z.x, z.surfY, z.w, z.y+z.h-z.surfY);
+  }
+}
+
+// ── Graph ──
+function drawGraph() {
+  const c = document.getElementById('g-cv');
+  if(!c || !c.offsetWidth) return;
+  c.width=c.offsetWidth; c.height=100;
+  const g=c.getContext('2d'), W=c.width, H=c.height;
+  
+  const vals = [];
+  for(let m=0; m<=5; m+=0.2) {
+    if(S.exp==='osmotica') vals.push({x:m, y:S.i*m*RG*(S.T+273.15)});
+    else if(S.exp==='crioscopia') vals.push({x:m, y:1.86*m*S.i});
+    else if(S.exp==='ebullioscopia') vals.push({x:m, y:0.512*m*S.i});
+    else vals.push({x:m, y:(m*.018/(1+m*.018))*S.i*100});
+  }
+  const maxY = Math.max(...vals.map(v=>v.y))||1;
+  
+  g.clearRect(0,0,W,H);
+  g.strokeStyle='rgba(34,211,238,.6)'; g.lineWidth=2;
+  g.beginPath();
+  vals.forEach((v,i) => {
+    const px = 10 + (v.x/5)*(W-20), py = H - 10 - (v.y/maxY)*(H-20);
+    i===0 ? g.moveTo(px,py) : g.lineTo(px,py);
+  });
+  g.stroke();
+  
+  // Plot current point
+  const curX = S.exp==='osmotica'?S.Mo:S.m;
+  const curY = vals.find(v=>v.x>=curX)?.y || 0;
+  const cx = 10 + (curX/5)*(W-20), cy = H - 10 - (curY/maxY)*(H-20);
+  g.beginPath(); g.arc(cx,cy,4,0,Math.PI*2); g.fillStyle='#22d3ee'; g.fill();
+}
+
+// ── REAL LIFE TABS & CANVAS ────────────────────────────
+let rlTick=0, rlRAF;
+function rlTab(id, btn) {
+  document.querySelectorAll('.rl-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.rl-panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('rl-'+id).classList.add('on');
+  if (id==='anticongelante') startAnti();
+  if (id==='carretera') startRoad();
+  if (id==='lixiviados') startLeach();
+}
+
+function initRealLife() {
+  setTimeout(()=>{ antiUpdate(40); roadUpdate('g',20); leachUpdate(20); startAnti(); }, 100);
+}
+
+// 1. Anticongelante
+function antiUpdate(v) {
+  RL.anti.pct = +v; document.getElementById('anti-pct-v').textContent = Math.round(v) + '%';
+  const mEG=v*1.113, molal=(mEG/62.07)/((100-v)/1000||0.001), tf=-(1.86*molal);
+  document.getElementById('anti-result').textContent = tf.toFixed(1) + ' °C';
+  document.getElementById('anti-note').textContent = tf < -20 ? '✅ Fluido seguro. El hielo no bloqueará el conducto.' : '❌ Peligro de cristalización que revienta el conducto.';
+}
+function startAnti() {
+  const c = document.getElementById('cv-anti');
+  if (!c) return;
+  const g = c.getContext('2d');
+  c.width = c.parentElement.clientWidth;
+  if(rlRAF) cancelAnimationFrame(rlRAF);
+  function draw() {
+    rlRAF=requestAnimationFrame(draw); rlTick++;
+    g.clearRect(0,0,c.width,c.height);
+    g.fillStyle='#080b12'; g.fillRect(0,0,c.width,c.height);
+    
+    // Draw pipe
+    const py=c.height/2-20;
+    g.strokeStyle='#374151'; g.lineWidth=6;
+    g.beginPath(); g.moveTo(20,py-20); g.lineTo(c.width-20,py-20); g.stroke();
+    g.beginPath(); g.moveTo(20,py+20); g.lineTo(c.width-20,py+20); g.stroke();
+    
+    // Logic 
+    const isFrozen = RL.anti.pct < 20; // Simplified threshold for animation
+    const speed = isFrozen ? 0 : 2;
+    
+    // Fluid
+    const col = `rgba(${50+RL.anti.pct*2}, 200, 100, 0.4)`;
+    g.fillStyle=col; g.fillRect(20,py-17,c.width-40, 34);
+    
+    if (isFrozen) {
+      g.fillStyle='rgba(186,230,253,0.8)';
+      g.fillRect(c.width/2-30, py-17, 60, 34); // Ice block
+      g.fillStyle='#fff'; g.font='12px sans-serif'; g.textAlign='center';
+      g.fillText('BLOQUEADO POR HIELO', c.width/2, py+4);
+    } else {
+      // Flowing particles
+      g.fillStyle='#fff';
+      for(let i=0; i<10; i++) {
+        let px = ((i*40 + rlTick*speed) % (c.width-40)) + 20;
+        g.beginPath(); g.arc(px, py+Math.sin(i+rlTick*0.1)*10, 3, 0, Math.PI*2); g.fill();
+      }
+    }
+  }
+  draw();
+}
+
+// 2. Road Salt
+function roadUpdate(k, v) {
+  RL.road.g=+v; document.getElementById('road-g-v').textContent=v+'g';
+  const molal=(v/RL.road.saltM)/(0.1), tf=-(1.86*molal*RL.road.saltI);
+  document.getElementById('road-result').textContent = tf.toFixed(1)+' °C';
+}
+function roadSalt(name, i, M) {
+  RL.road = { g:RL.road.g, saltName:name, saltI:i, saltM:M };
+  document.querySelectorAll('#rl-carretera .cmp').forEach(b => b.classList.remove('on'));
+  event.target.classList.add('on');
+  roadUpdate('g', RL.road.g);
+}
+function startRoad() {
+  const c = document.getElementById('cv-road');
+  const g = c.getContext('2d'); c.width = c.parentElement.clientWidth;
+  if(rlRAF) cancelAnimationFrame(rlRAF);
+  function draw() {
+    rlRAF=requestAnimationFrame(draw); rlTick++;
+    g.fillStyle='#0f172a'; g.fillRect(0,0,c.width,c.height);
+    
+    const roadY = c.height*0.6;
+    g.fillStyle='#1e293b'; g.fillRect(0,roadY,c.width, c.height-roadY);
+    
+    const tf = -(1.86 * ((RL.road.g/RL.road.saltM)/0.1) * RL.road.saltI);
+    const iceThick = Math.max(0, 25 - Math.abs(tf));
+    
+    if (iceThick > 0) {
+      g.fillStyle='rgba(186,230,253,0.5)';
+      g.fillRect(0, roadY-iceThick, c.width, iceThick);
+    }
+    
+    // Salt falling
+    g.fillStyle=RL.road.saltName==='NaCl'?'#f8fafc':'#fde047';
+    for(let i=0; i<RL.road.g/2; i++) {
+      let x = (i*30 + rlTick) % c.width;
+      let y = roadY - iceThick + Math.sin(x)*2;
+      g.fillRect(x,y, 3, 3);
+    }
+  }
+  draw();
+}
+
+// 3. Lixiviados (Redone Reverse Osmosis)
+function leachUpdate(v) {
+  RL.leach.c = +v; document.getElementById('leach-c-v').textContent = v + ' g/L';
+  const pi = 2 * (v/100) * RG * 298.15; // Approx
+  document.getElementById('leach-result').textContent = pi.toFixed(2) + ' atm';
+  document.getElementById('leach-note').textContent = `Las bombas mecánicas deben superar ${pi.toFixed(2)} atm para empujar el agua y filtrarla.`;
+}
+function startLeach() {
+  const c = document.getElementById('cv-leach');
+  const g = c.getContext('2d'); c.width = c.parentElement.clientWidth;
+  if(rlRAF) cancelAnimationFrame(rlRAF);
+  function draw() {
+    rlRAF=requestAnimationFrame(draw); rlTick++;
+    g.fillStyle='#07090f'; g.fillRect(0,0,c.width,c.height);
+    
+    const cy = c.height/2, w = c.width*0.8, x = c.width*0.1, h = 80;
+    
+    // Cylinder
+    g.strokeStyle='#475569'; g.lineWidth=4;
+    g.strokeRect(x, cy-h/2, w, h);
+    
+    // Membrane center
+    const memX = x + w/2;
+    g.setLineDash([4,4]); g.strokeStyle='#22d3ee';
+    g.beginPath(); g.moveTo(memX, cy-h/2); g.lineTo(memX, cy+h/2); g.stroke(); g.setLineDash([]);
+    
+    const conc = RL.leach.c;
+    // Left: dirty water
+    g.fillStyle=`rgba(${100+conc*2}, ${100-conc}, 50, 0.6)`;
+    g.fillRect(x, cy-h/2+2, w/2, h-4);
+    
+    // Right: clean water
+    g.fillStyle='rgba(59,130,246,0.3)';
+    g.fillRect(memX, cy-h/2+2, w/2, h-4);
+    
+    // Piston pushing from left based on pressure
+    const push = Math.sin(rlTick*0.05)*10 + 10;
+    g.fillStyle='#94a3b8';
+    g.fillRect(x-10 + push, cy-h/2+2, 10, h-4);
+    
+    // Clean water drops coming out right
+    if (push > 10) {
+      g.fillStyle='#3b82f6';
+      let dropX = x+w + (rlTick*2 % 20);
+      g.beginPath(); g.arc(dropX, cy, 3, 0, Math.PI*2); g.fill();
+    }
+    
+    g.fillStyle='#fff'; g.font='10px sans-serif'; g.textAlign='center';
+    g.fillText('Presión PISTÓN > Π', x+w/4, cy-h/2-10);
+    g.fillText('Agua Limpia', memX+w/4, cy-h/2-10);
+  }
+  draw();
+}
+
+// ── Calculator ──────────────────────────────────────────
+function doCalc() {
+  const ms = parseFloat(document.getElementById('c-ms').value);
+  const mv = parseFloat(document.getElementById('c-mv').value);
+  const t = parseFloat(document.getElementById('c-T').value);
+  const sol = document.getElementById('c-sol').value.split('|');
+  const i = parseFloat(sol[1]), M = parseFloat(sol[2]);
+  
+  const molal = (ms/M) / (mv/1000);
+  const dtf = 1.86 * molal * i;
+  const dtb = 0.512 * molal * i;
+  
+  const molar = (ms/M) / ((mv+ms)/1000); // rough approximation
+  const pi = i * molar * RG * (t+273.15);
+  
+  const out = `
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-family:var(--mono); font-size:0.85rem">
+      <div>Molalidad: <b style="color:var(--cyan)">${molal.toFixed(3)} m</b></div>
+      <div>P. Osmótica: <b style="color:var(--purple)">${pi.toFixed(2)} atm</b></div>
+      <div>Baja Congelación: <b style="color:var(--green)">-${dtf.toFixed(2)} °C</b></div>
+      <div>Sube Ebullición: <b style="color:var(--amber)">+${dtb.toFixed(2)} °C</b></div>
+    </div>
+  `;
+  document.getElementById('calc-out').innerHTML = out;
+}
+
+window.onload = () => { initLab(); };
+</script>
+</body>
+</html>
