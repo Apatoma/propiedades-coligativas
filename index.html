@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Propiedades Coligativas — Lab Visual</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -29,7 +29,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--txt); font-family: var(--sans); overflow-x: hidden; }
-::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--panel); }
 ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
 
@@ -38,12 +38,11 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   background: rgba(7,9,15,.95); border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 1rem; height: 56px; backdrop-filter: blur(12px);
+  padding: 0 1.5rem; height: 56px; backdrop-filter: blur(12px);
 }
-.logo { font-weight: 800; font-size: 1rem; color: var(--cyan); letter-spacing: -0.5px; display: flex; align-items: center; gap: .4rem; white-space: nowrap; }
+.logo { font-weight: 800; font-size: 1.1rem; color: var(--cyan); letter-spacing: -0.5px; display: flex; align-items: center; gap: .4rem; }
 .logo span { color: var(--txt2); font-weight: 400; font-size: .8rem; }
-.ntabs { display: flex; gap: 2px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
-.ntabs::-webkit-scrollbar { display: none; }
+.ntabs { display: flex; gap: 2px; }
 .ntab {
   padding: .4rem .85rem; border-radius: 6px; cursor: pointer; border: none;
   background: none; color: var(--txt2); font-size: .82rem; font-weight: 500;
@@ -61,12 +60,11 @@ nav {
 #pg-home { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 56px 1.5rem 3rem; }
 #pg-home.on { display: flex; }
 .hero-tag { display: inline-block; background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.25); color: var(--cyan); font-size: .78rem; font-weight: 600; letter-spacing: 1px; padding: .3rem 1rem; border-radius: 20px; margin-bottom: 1.5rem; }
-.hero-h1 { font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.05; margin-bottom: 1rem; letter-spacing: -1px; word-break: break-word; }
+.hero-h1 { font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.05; margin-bottom: 1rem; letter-spacing: -1px; }
 .hero-h1 em { color: var(--cyan); font-style: normal; display: block; }
 .hero-p { font-size: 1.05rem; color: var(--txt2); max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; font-weight: 400; }
-.cards4 { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1px; max-width: 800px; width: 100%; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
-@media(min-width:480px) { .cards4 { grid-template-columns: repeat(2,1fr); } }
-@media(min-width:768px) { .cards4 { grid-template-columns: repeat(4,1fr); } }
+.cards4 { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; max-width: 800px; width: 100%; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+@media(min-width:640px) { .cards4 { grid-template-columns: repeat(4,1fr); } }
 .hcard { background: var(--panel); padding: 1.4rem 1rem; cursor: pointer; transition: background .2s; text-align: left; border: none; }
 .hcard:hover { background: var(--card); }
 .hcard-icon { font-size: 1.8rem; margin-bottom: .5rem; }
@@ -74,12 +72,12 @@ nav {
 .hcard-tag { font-family: var(--mono); font-size: .58rem; color: var(--amber); margin-bottom: .4rem; }
 .hcard-desc { font-size: .78rem; color: var(--txt2); line-height: 1.45; }
 .row-btns { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; }
-.btn-out { background: none; border: 1px solid var(--border2); border-radius: 8px; color: var(--txt2); font-size: .82rem; font-weight: 500; padding: .45rem 1.1rem; cursor: pointer; transition: all .18s; white-space: nowrap; }
+.btn-out { background: none; border: 1px solid var(--border2); border-radius: 8px; color: var(--txt2); font-size: .82rem; font-weight: 500; padding: .45rem 1.1rem; cursor: pointer; transition: all .18s; }
 .btn-out:hover { border-color: var(--cyan); color: var(--cyan); }
 
 /* ── LAB LAYOUT ── */
-#pg-lab { display: none; height: 100vh; overflow: hidden; }
-#pg-lab.on { display: grid; grid-template-columns: 260px 1fr 280px; grid-template-rows: 1fr; }
+#pg-lab { display: none; height: 100vh; }
+#pg-lab.on { display: grid; grid-template-columns: 260px 1fr 280px; }
 .lbar, .rbar { background: var(--panel); overflow-y: auto; padding: calc(56px + .8rem) .8rem .8rem; display: flex; flex-direction: column; gap: .75rem; }
 .lbar { border-right: 1px solid var(--border); }
 .rbar { border-left: 1px solid var(--border); }
@@ -104,13 +102,13 @@ nav {
 .sl-lbl { font-size: .62rem; font-weight: 600; color: var(--txt3); text-transform: uppercase; letter-spacing: .5px; }
 .sl-val { font-family: var(--mono); font-size: .7rem; color: var(--cyan); }
 input[type=range] { -webkit-appearance: none; width: 100%; height: 3px; background: #1f2937; border-radius: 2px; outline: none; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; cursor: pointer; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; cursor: pointer; }
 input[type=range].c::-webkit-slider-thumb { background: var(--cyan); }
 input[type=range].g::-webkit-slider-thumb { background: var(--green); }
 input[type=range].a::-webkit-slider-thumb { background: var(--amber); }
 input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
 
-/* legend & canvas */
+/* legend */
 .legend-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .85rem; }
 .legend-item { display: flex; align-items: flex-start; gap: .5rem; padding: .35rem 0; border-bottom: 1px solid var(--border); }
 .legend-item:last-child { border-bottom: none; }
@@ -119,18 +117,20 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
 .ldef { font-size: .7rem; color: var(--txt2); line-height: 1.5; }
 .ldef b { color: var(--cyan); font-weight: 600; }
 
-.canvas-area { position: relative; overflow: hidden; background: #050709; width: 100%; height: 100%; }
-#lab-cv { display: block; width: 100%; height: 100%; touch-action: none; }
+/* canvas area */
+.canvas-area { position: relative; overflow: hidden; background: #050709; }
+#lab-cv { display: block; width: 100%; height: 100%; }
 .hud { position: absolute; inset: 0; pointer-events: none; padding: .8rem; padding-top: calc(56px + .8rem); display: flex; flex-direction: column; justify-content: space-between; }
 .hud-top { display: flex; justify-content: space-between; }
 .hud-chip { font-family: var(--mono); font-size: .56rem; color: rgba(34,211,238,.5); background: rgba(0,0,0,.6); border: 1px solid rgba(34,211,238,.12); padding: 3px 10px; border-radius: 20px; }
 .hud-bot { text-align: center; font-size: .62rem; color: var(--txt3); }
 
+/* tooltip */
 #tip { position: fixed; background: rgba(13,17,23,.97); border: 1px solid var(--border2); border-radius: 8px; padding: .55rem .8rem; font-size: .7rem; color: var(--txt); pointer-events: none; z-index: 9000; max-width: 210px; line-height: 1.6; display: none; box-shadow: 0 8px 30px rgba(0,0,0,.6); }
 #tip strong { color: var(--cyan); }
 #tip em { color: var(--amber); font-style: normal; }
 
-/* meters & info boxes */
+/* meters */
 .meters { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
 .meter { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .55rem; text-align: center; position: relative; overflow: hidden; }
 .meter::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
@@ -140,40 +140,60 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
 .mc .m-val { color: var(--cyan); } .mg .m-val { color: var(--green); } .ma .m-val { color: var(--amber); } .mp .m-val { color: var(--purple); }
 .m-unit { font-size: .5rem; color: var(--txt3); }
 
-.fbox, .exbox, .gbox { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .85rem; }
-.fbox-lbl, .exbox-lbl, .gbox-lbl { font-size: .58rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .45rem; }
+/* formula */
+.fbox { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .85rem; }
+.fbox-lbl { font-size: .58rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .45rem; }
 .fbox-eq { font-family: var(--mono); font-size: .7rem; color: var(--amber); line-height: 1.8; white-space: pre-line; margin-bottom: .45rem; }
 .fbox-res { background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.2); border-radius: 6px; padding: .45rem; font-family: var(--mono); font-size: .88rem; color: var(--green); text-align: center; font-weight: 700; white-space: pre-line; }
 
+/* explain */
+.exbox { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .85rem; }
+.exbox-lbl { font-size: .58rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .5rem; }
 .exbox-body { font-size: .8rem; color: var(--txt2); line-height: 1.7; }
 .exbox-body strong { color: var(--txt); font-weight: 600; }
+.exbox-body em { color: var(--cyan); font-style: normal; font-weight: 600; }
 .exstep { display: flex; gap: .45rem; margin-top: .4rem; padding-top: .4rem; border-top: 1px solid var(--border); font-size: .78rem; color: var(--txt2); line-height: 1.55; }
 .eico { flex-shrink: 0; font-size: .9rem; padding-top: 1px; }
 
-#g-cv { width: 100%; height: 100px; display: block; margin-top: .35rem;}
+/* graph */
+.gbox { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .75rem; }
+.gbox-lbl { font-size: .58rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .35rem; }
+#g-cv { width: 100%; height: 100px; display: block; }
 
-.btn-p { width: 100%; padding: .6rem; background: none; border: 1.5px solid var(--cyan); border-radius: 8px; color: var(--cyan); font-size: .75rem; font-weight: 700; cursor: pointer; transition: all .18s; letter-spacing: .5px; }
+/* control btns */
+.btn-p { width: 100%; padding: .5rem; background: none; border: 1.5px solid var(--cyan); border-radius: 8px; color: var(--cyan); font-size: .72rem; font-weight: 700; cursor: pointer; transition: all .18s; letter-spacing: .5px; }
 .btn-p:hover { background: var(--cyan); color: var(--bg); }
-.btn-s { width: 100%; padding: .5rem; background: none; border: 1px solid var(--border2); border-radius: 8px; color: var(--txt2); font-size: .75rem; font-weight: 500; cursor: pointer; transition: all .18s; margin-top: 4px; }
+.btn-s { width: 100%; padding: .42rem; background: none; border: 1px solid var(--border2); border-radius: 8px; color: var(--txt2); font-size: .7rem; font-weight: 500; cursor: pointer; transition: all .18s; margin-top: 4px; }
 .btn-s:hover { border-color: var(--txt); color: var(--txt); }
+.report-out { margin-top: 4px; }
+.report-box { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .85rem; font-size: .7rem; }
+.report-box h4 { font-size: .85rem; font-weight: 700; color: var(--cyan); margin-bottom: .6rem; }
+table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: .65rem; }
+th { color: var(--txt3); text-align: left; padding: .32rem .6rem; border-bottom: 1px solid var(--border); font-weight: 600; }
+td { color: var(--txt2); padding: .32rem .6rem; border-bottom: 1px solid rgba(255,255,255,.03); }
+tr:hover td { color: var(--txt); background: rgba(255,255,255,.02); }
 
 /* ── REAL LIFE ── */
-.rl-tabs { display: flex; gap: 3px; border-bottom: 1px solid var(--border); margin-bottom: 2rem; overflow-x: auto; scrollbar-width: none; }
-.rl-tabs::-webkit-scrollbar { display: none; }
-.rl-tab { padding: .55rem 1.1rem; border-radius: 6px 6px 0 0; cursor: pointer; border: none; background: none; color: var(--txt2); font-size: .82rem; font-weight: 500; transition: all .15s; border-bottom: 2px solid transparent; white-space: nowrap; }
+.rl-tabs { display: flex; gap: 3px; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+.rl-tab { padding: .55rem 1.1rem; border-radius: 6px 6px 0 0; cursor: pointer; border: none; background: none; color: var(--txt2); font-size: .82rem; font-weight: 500; transition: all .15s; border-bottom: 2px solid transparent; }
 .rl-tab:hover { color: var(--txt); }
 .rl-tab.on { color: var(--cyan); border-bottom-color: var(--cyan); }
 .rl-panel { display: none; }
 .rl-panel.on { display: block; }
 
+/* big example card */
 .big-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 1.5rem; }
 .big-card-top { padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
-@media(max-width:768px) { .big-card-top { grid-template-columns: 1fr; } }
+@media(max-width:700px) { .big-card-top { grid-template-columns: 1fr; } }
+.big-card-story { }
 .big-card-story h2 { font-size: 1.5rem; font-weight: 800; color: var(--txt); margin-bottom: .3rem; line-height: 1.2; }
 .big-card-story .tag { display: inline-block; background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.2); color: var(--cyan); font-size: .7rem; font-weight: 600; padding: .2rem .7rem; border-radius: 20px; margin-bottom: .75rem; }
 .big-card-story p { font-size: .9rem; color: var(--txt2); line-height: 1.75; margin-bottom: .8rem; }
 .big-card-story p strong { color: var(--txt); font-weight: 600; }
+.big-card-story .analogy { background: var(--card); border-left: 3px solid var(--cyan); border-radius: 0 8px 8px 0; padding: .65rem .9rem; font-size: .83rem; color: var(--txt2); line-height: 1.6; font-style: italic; margin-top: .5rem; }
+.big-card-story .analogy strong { color: var(--cyan); font-style: normal; }
 
+/* interactive side */
 .big-card-sim { display: flex; flex-direction: column; gap: .75rem; }
 .sim-vis { width: 100%; border-radius: 10px; overflow: hidden; background: #050709; border: 1px solid var(--border); }
 .sim-vis canvas { display: block; width: 100%; }
@@ -186,10 +206,10 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
 .result-badge { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.25); border-radius: 8px; padding: .65rem .9rem; display: flex; align-items: center; justify-content: space-between; margin-top: .2rem; }
 .rb-label { font-size: .72rem; color: var(--txt2); font-weight: 500; }
 .rb-value { font-family: var(--mono); font-size: 1.05rem; font-weight: 800; color: var(--green); }
-.rb-note { font-size: .7rem; color: var(--txt2); margin-top: .4rem; line-height: 1.5; background: rgba(255,255,255,.03); padding: .5rem; border-radius: 6px; }
+.rb-note { font-size: .7rem; color: var(--txt2); margin-top: .3rem; line-height: 1.5; }
 
-/* ── THEORY & CALC ── */
-.th-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+/* ── THEORY ── */
+.th-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(440px,1fr)); gap: 1.25rem; margin-top: 1.5rem; }
 .th-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; position: relative; overflow: hidden; }
 .th-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
 .tc-c::before { background: var(--cyan); } .tc-g::before { background: var(--green); } .tc-a::before { background: var(--amber); } .tc-p::before { background: var(--purple); }
@@ -197,36 +217,48 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
 .tc-c .th-h { color: var(--cyan); } .tc-g .th-h { color: var(--green); } .tc-a .th-h { color: var(--amber); } .tc-p .th-h { color: var(--purple); }
 .th-simple { font-size: .95rem; color: var(--txt); line-height: 1.7; margin-bottom: .9rem; font-weight: 500; background: var(--card); border-radius: 8px; padding: .75rem; }
 .th-formula { background: var(--bg); border-radius: 8px; padding: .8rem; font-family: var(--mono); font-size: .8rem; color: var(--amber); text-align: center; margin: .6rem 0; border-left: 3px solid var(--amber); line-height: 1.9; }
+.th-p { font-size: .83rem; color: var(--txt2); line-height: 1.75; }
+.th-p strong { color: var(--txt); } .th-p em { color: var(--amber); font-style: normal; }
+.th-steps { margin-top: .7rem; display: flex; flex-direction: column; gap: .4rem; }
+.th-step { display: flex; gap: .5rem; font-size: .8rem; color: var(--txt2); }
+.th-step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--card); display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 700; flex-shrink: 0; color: var(--cyan); }
 
+/* ── CALC ── */
 .calc-card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-.calc-hd { background: var(--card); padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.calc-hd { background: var(--card); padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.calc-hd h3 { font-size: 1rem; font-weight: 700; }
 .calc-body { padding: 1.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-@media(max-width:600px) { .calc-body { grid-template-columns: 1fr; } }
 .fg { display: flex; flex-direction: column; gap: 4px; }
 .fl { font-size: .7rem; font-weight: 600; color: var(--txt3); text-transform: uppercase; letter-spacing: .5px; }
-.fi { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: .6rem .7rem; font-size: .85rem; color: var(--txt); width: 100%; outline: none; transition: border-color .15s; font-family: var(--mono); }
+.fi { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: .45rem .7rem; font-size: .82rem; color: var(--txt); width: 100%; outline: none; transition: border-color .15s; font-family: var(--mono); }
 .fi:focus { border-color: var(--cyan); }
-.calc-go { grid-column: 1/-1; padding: .8rem; background: var(--cyan); border: none; border-radius: 8px; color: var(--bg); font-size: .9rem; font-weight: 800; cursor: pointer; transition: opacity .15s; letter-spacing: .5px; }
+select.fi { cursor: pointer; }
+.calc-go { grid-column: 1/-1; padding: .6rem; background: var(--cyan); border: none; border-radius: 8px; color: var(--bg); font-size: .82rem; font-weight: 800; cursor: pointer; transition: opacity .15s; letter-spacing: .5px; }
+.calc-go:hover { opacity: .88; }
+.results-grid { grid-column: 1/-1; display: none; grid-template-columns: repeat(4,1fr); gap: 6px; padding-top: .9rem; border-top: 1px solid var(--border); }
+.ri { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: .6rem; text-align: center; }
+.ri-l { font-size: .55rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 3px; }
+.ri-v { font-family: var(--mono); font-size: .88rem; font-weight: 700; color: var(--green); }
+.step-report { grid-column: 1/-1; }
+.step-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; margin-top: .5rem; }
+.step-box h4 { font-size: .85rem; font-weight: 700; color: var(--cyan); margin-bottom: .65rem; }
 
-/* ── RESPONSIVE OVERRIDES ── */
-@media(max-width:900px) { 
-  #pg-lab.on { display: flex; flex-direction: column; height: auto; overflow: auto; padding-top: 56px; } 
-  .lbar, .rbar { width: 100%; border: none; padding: 1rem; padding-top: 1rem; }
-  .canvas-area { height: 45vh; min-height: 350px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .hud { padding-top: .8rem; }
-  .th-grid { grid-template-columns: 1fr; } 
-}
-@media(max-width:600px) { 
-  .hero-h1 { font-size: 2.2rem; } 
-  .logo span { display: none; } /* Ahorrar espacio en barra superior */
-  nav { padding: 0 0.5rem; }
-}
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; background: var(--card); border: 1px solid var(--amber); border-radius: 10px; padding: .85rem 1.2rem; display: flex; align-items: center; gap: .7rem; transform: translateX(140%); transition: transform .35s ease; max-width: 280px; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
+.toast.on { transform: translateX(0); }
+.ti { font-size: 1.5rem; }
+.tt { font-size: .85rem; font-weight: 700; color: var(--amber); }
+.ts { font-size: .72rem; color: var(--txt2); }
+
+/* responsive */
+@media(max-width:900px) { #pg-lab.on { grid-template-columns: 1fr; } .lbar, .rbar { display: none; } .th-grid { grid-template-columns: 1fr; } .calc-body { grid-template-columns: 1fr; } .results-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:600px) { .ntabs { display: none; } .hero-h1 { font-size: 2rem; } .calc-body { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">⚗ PropColigativas <span>Lab</span></div>
+  <div class="logo">⚗ PropColigativas <span>Lab interactivo</span></div>
   <div class="ntabs">
     <button class="ntab on"  onclick="goPage('home')">Inicio</button>
     <button class="ntab"     onclick="goPage('lab')">Simulación</button>
@@ -234,40 +266,48 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
     <button class="ntab"     onclick="goPage('theory')">Teoría</button>
     <button class="ntab"     onclick="goPage('calc')">Calculadora</button>
   </div>
+  <div style="width:120px"></div>
 </nav>
 
+<!-- ══ HOME ══ -->
 <div class="page on" id="pg-home">
   <div class="hero-tag">🔬 Aprende química sin complicarte</div>
-  <h1 class="hero-h1">¿Qué pasa cuando<br><em>disuelves algo en agua?</em></h1>
-  <p class="hero-p">Cuando añades sal, azúcar u otras sustancias al agua, cambias sus propiedades físicas. El agua ya no congela igual, no hierve igual y se mueve distinto. Esto se llama <strong style="color:var(--cyan)">propiedades coligativas</strong>.</p>
+  <h1 class="hero-h1">¿Qué pasa cuando<em>disuelves algo en agua?</em></h1>
+  <p class="hero-p">Cuando añades sal, azúcar u otras sustancias al agua, cambias sus propiedades físicas de formas sorprendentes. El agua ya no congela igual, no hierve igual y se mueve de maneras que parecen mágicas. Esto tiene nombre: <strong style="color:var(--cyan)">propiedades coligativas</strong>.</p>
   <div class="cards4">
     <div class="hcard" onclick="goPage('lab');setExp('osmotica')">
       <div class="hcard-icon">🔬</div>
       <div class="hcard-name">Presión Osmótica</div>
       <div class="hcard-tag">Π = i·M·R·T</div>
+      <div class="hcard-desc">El agua atraviesa membranas buscando equilibrio</div>
     </div>
     <div class="hcard" onclick="goPage('lab');setExp('crioscopia')">
       <div class="hcard-icon">🧊</div>
       <div class="hcard-name">Descenso Crioscópico</div>
       <div class="hcard-tag">ΔTf = Kf·m·i</div>
+      <div class="hcard-desc">Con sal en el agua, necesitas más frío para que congele</div>
     </div>
     <div class="hcard" onclick="goPage('lab');setExp('ebullioscopia')">
       <div class="hcard-icon">♨️</div>
       <div class="hcard-name">Elevación Ebulloscópica</div>
       <div class="hcard-tag">ΔTb = Kb·m·i</div>
+      <div class="hcard-desc">Con sal en el agua, necesitas más calor para que hierva</div>
     </div>
     <div class="hcard" onclick="goPage('lab');setExp('vapor')">
       <div class="hcard-icon">💨</div>
       <div class="hcard-name">Presión de Vapor</div>
       <div class="hcard-tag">P = χ₁·P°</div>
+      <div class="hcard-desc">Con sal, menos agua se evapora de la superficie</div>
     </div>
   </div>
   <div class="row-btns">
-    <button class="btn-out" onclick="goPage('lab')">🔬 Abrir simulación</button>
     <button class="btn-out" onclick="goPage('real')">🚗 Ver ejemplos reales</button>
+    <button class="btn-out" onclick="goPage('lab')">🔬 Abrir simulación</button>
+    <button class="btn-out" onclick="goPage('calc')">🧮 Calculadora</button>
   </div>
 </div>
 
+<!-- ══ LAB ══ -->
 <div class="page" id="pg-lab">
   <div class="lbar">
     <div class="bar-title">Experimento</div>
@@ -293,15 +333,17 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
     <div class="bar-title">Sustancia disuelta</div>
     <div class="cmps">
       <button class="cmp on" onclick="setCmp('NaCl',2,58.44)"    data-c="NaCl">NaCl<br><small style="color:var(--txt3)">Sal común</small></button>
-      <button class="cmp"    onclick="setCmp('CaCl₂',3,111.0)"   data-c="CaCl₂">CaCl₂<br><small style="color:var(--txt3)">Sal potente</small></button>
+      <button class="cmp"    onclick="setCmp('CaCl₂',3,111.0)"   data-c="CaCl₂">CaCl₂<br><small style="color:var(--txt3)">Sal carretera</small></button>
       <button class="cmp"    onclick="setCmp('Glucosa',1,180.16)" data-c="Glucosa">Glucosa<br><small style="color:var(--txt3)">Azúcar</small></button>
       <button class="cmp"    onclick="setCmp('Sacarosa',1,342.3)" data-c="Sacarosa">Sacarosa<br><small style="color:var(--txt3)">Azúcar mesa</small></button>
+      <button class="cmp"    onclick="setCmp('KCl',2,74.55)"      data-c="KCl">KCl<br><small style="color:var(--txt3)">Sal potásica</small></button>
+      <button class="cmp"    onclick="setCmp('MgCl₂',3,95.21)"   data-c="MgCl₂">MgCl₂<br><small style="color:var(--txt3)">Sal marina</small></button>
     </div>
 
     <div class="bar-title">Ajustar variables</div>
     <div style="display:flex;flex-direction:column;gap:.55rem">
       <div class="sl-wrap">
-        <div class="sl-row"><span class="sl-lbl">Cantidad (molalidad)</span><span class="sl-val" id="v-m">1.00</span></div>
+        <div class="sl-row"><span class="sl-lbl">Cantidad disuelta (molalidad)</span><span class="sl-val" id="v-m">1.00</span></div>
         <input type="range" class="g" id="sl-m" min="0.1" max="5" step="0.05" value="1" oninput="onSl('m',this.value)">
       </div>
       <div class="sl-wrap">
@@ -312,11 +354,15 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
         <div class="sl-row"><span class="sl-lbl">Temperatura (°C)</span><span class="sl-val" id="v-T">25</span></div>
         <input type="range" class="a" id="sl-T" min="0" max="100" step="1" value="25" oninput="onSl('T',this.value)">
       </div>
+      <div class="sl-wrap">
+        <div class="sl-row"><span class="sl-lbl">Partículas por molécula (i)</span><span class="sl-val" id="v-i">2</span></div>
+        <input type="range" class="p" id="sl-i" min="1" max="5" step="0.5" value="2" oninput="onSl('i',this.value)">
+      </div>
     </div>
-    
-    <div style="margin-top: auto;">
-      <button class="btn-s" onclick="resetSim()">↺ Reiniciar simulación</button>
-    </div>
+
+    <div class="bar-title">Control</div>
+    <button class="btn-p" onclick="toggleSim()"><span id="sim-txt">⏸ Pausar</span></button>
+    <button class="btn-s" onclick="resetSim()">↺ Reiniciar</button>
   </div>
 
   <div class="canvas-area">
@@ -324,18 +370,48 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
     <div class="hud">
       <div class="hud-top">
         <span class="hud-chip" id="exp-chip">PRESIÓN OSMÓTICA</span>
+        <span class="hud-chip" id="time-chip">T+00:00</span>
       </div>
-      <div class="hud-bot" id="ptip-chip">Toca las partículas para ver qué son</div>
+      <div class="hud-bot" id="ptip-chip">Pasa el cursor sobre las bolitas para ver qué son</div>
     </div>
   </div>
 
   <div class="rbar">
+    <div class="bar-title">¿Qué significa cada bolita?</div>
+    <div class="legend-wrap">
+      <div class="legend-item">
+        <div class="ldot" style="background:#22d3ee"></div>
+        <div><div class="lname">💧 Agua (solvente)</div>
+        <div class="ldef">Molécula de agua, H₂O. Es el líquido base. <b>Puede cruzar</b> la membrana osmótica. Se mueve más rápido cuando hace más calor.</div></div>
+      </div>
+      <div class="legend-item">
+        <div class="ldot" style="background:#f59e0b"></div>
+        <div><div class="lname">🟡 Soluto (sin ionizar)</div>
+        <div class="ldef">La sustancia que se disuelve cuando <b>no se rompe</b> en pedazos (ej: azúcar). Cuenta como 1 partícula. <b>No cruza</b> la membrana.</div></div>
+      </div>
+      <div class="legend-item">
+        <div class="ldot" style="background:#ef4444"></div>
+        <div><div class="lname">🔴 Ion positivo (catión)</div>
+        <div class="ldef">Cuando la sal se disuelve, <b>se rompe en trozos cargados</b>. El trozo positivo (ej: Na⁺). Cada trozo es una partícula independiente que aumenta el efecto.</div></div>
+      </div>
+      <div class="legend-item">
+        <div class="ldot" style="background:#10b981"></div>
+        <div><div class="lname">🟢 Ion negativo (anión)</div>
+        <div class="ldef">El trozo negativo de la sal (ej: Cl⁻). Por eso la sal (<b>NaCl → Na⁺ + Cl⁻</b>) produce el doble de efecto que el azúcar.</div></div>
+      </div>
+      <div class="legend-item">
+        <div class="ldot" style="background:#a78bfa"></div>
+        <div><div class="lname">🟣 Vapor de agua</div>
+        <div class="ldef">Molécula de agua que ha escapado al aire (fase gaseosa). Visible en el experimento de presión de vapor. <b>Menos vapor = menor presión</b>.</div></div>
+      </div>
+    </div>
+
     <div class="bar-title">Resultados</div>
     <div class="meters">
-      <div class="meter mc"><div class="m-lbl">P. osmótica</div><div class="m-val" id="m-pi">—</div><div class="m-unit">atm</div></div>
-      <div class="meter mg"><div class="m-lbl">T. Congelación</div><div class="m-val" id="m-dtf">—</div><div class="m-unit">°C</div></div>
-      <div class="meter ma"><div class="m-lbl">T. Ebullición</div><div class="m-val" id="m-dtb">—</div><div class="m-unit">°C</div></div>
-      <div class="meter mp"><div class="m-lbl">Baja P. vapor</div><div class="m-val" id="m-dp">—</div><div class="m-unit">%</div></div>
+      <div class="meter mc"><div class="m-lbl">Presión osmótica</div><div class="m-val" id="m-pi">—</div><div class="m-unit">atm</div></div>
+      <div class="meter mg"><div class="m-lbl">Baja punto congelac.</div><div class="m-val" id="m-dtf">—</div><div class="m-unit">°C</div></div>
+      <div class="meter ma"><div class="m-lbl">Sube punto ebullición</div><div class="m-val" id="m-dtb">—</div><div class="m-unit">°C</div></div>
+      <div class="meter mp"><div class="m-lbl">Baja presión vapor</div><div class="m-val" id="m-dp">—</div><div class="m-unit">%</div></div>
     </div>
 
     <div class="fbox">
@@ -345,7 +421,7 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
     </div>
 
     <div class="exbox">
-      <div class="exbox-lbl">Explicación</div>
+      <div class="exbox-lbl">Explicación simple</div>
       <div class="exbox-body" id="explain">Selecciona un experimento arriba.</div>
     </div>
 
@@ -353,39 +429,46 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
       <div class="gbox-lbl">Cantidad disuelta → Efecto</div>
       <canvas id="g-cv"></canvas>
     </div>
+
+    <div class="bar-title">Reporte</div>
+    <button class="btn-s" onclick="genReport()">📋 Generar reporte</button>
+    <div class="report-out" id="report-out"></div>
   </div>
 </div>
 
+<!-- ══ VIDA REAL ══ -->
 <div class="page" id="pg-real">
   <div class="wrap">
     <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.3rem">En la vida real</h2>
-    <p style="color:var(--txt2);font-size:.95rem;margin-bottom:1.5rem;max-width:600px">Estos fenómenos químicos tienen aplicaciones directas en nuestro día a día.</p>
+    <p style="color:var(--txt2);font-size:.95rem;margin-bottom:1.5rem;max-width:600px">Estos fenómenos ocurren a tu alrededor cada día. Aquí tienes tres ejemplos visuales e interactivos.</p>
 
     <div class="rl-tabs">
       <button class="rl-tab on" onclick="rlTab('anticongelante',this)">🚗 Anticongelante</button>
       <button class="rl-tab"    onclick="rlTab('carretera',this)">🧂 Sal en carreteras</button>
-      <button class="rl-tab"    onclick="rlTab('lixiviados',this)">🏭 Ósmosis Lixiviados</button>
+      <button class="rl-tab"    onclick="rlTab('lixiviados',this)">🏭 Lixiviados vertedero</button>
     </div>
 
+    <!-- ANTICONGELANTE -->
     <div class="rl-panel on" id="rl-anticongelante">
       <div class="big-card">
         <div class="big-card-top">
           <div class="big-card-story">
             <div class="tag">🧊 Descenso crioscópico</div>
             <h2>¿Por qué los coches no se congelan en invierno?</h2>
-            <p>El motor de un coche necesita líquido para enfriarse. Si usamos solo agua, esta se congela a 0°C. Al congelarse, el hielo se expande y puede reventar el bloque del motor.</p>
-            <p>Añadimos <strong>anticongelante (etilenglicol)</strong>. Al disolverse en el agua, impide que las moléculas de H₂O formen la estructura cristalina del hielo a 0°C. Al ajustar el porcentaje, logramos que el líquido resista temperaturas de hasta -40°C sin solidificarse.</p>
+            <p>El motor de un coche necesita agua para enfriarse. Pero el agua congela a 0°C, y si el motor se congela, el bloque de metal puede romperse y costar miles de euros de reparación.</p>
+            <p>La solución es añadir <strong>anticongelante (etilenglicol)</strong> al depósito de agua. Este compuesto, al disolverse, baja el punto de congelación del agua. Es exactamente el principio del descenso crioscópico.</p>
+            <div class="analogy"><strong>Piénsalo así:</strong> imagina que el hielo es como un rompecabezas que las moléculas de agua tienen que montar para congelarse. El anticongelante es como alguien que va mezclando las piezas — el rompecabezas tarda mucho más en completarse, es decir, en congelar.</div>
           </div>
           <div class="big-card-sim">
             <div class="sim-vis"><canvas id="cv-anti" height="220"></canvas></div>
             <div class="sim-ctrl">
-              <h4>🎛️ Mezcla del circuito</h4>
+              <h4>🎛️ Prueba tú mismo</h4>
               <div class="ctrl-row">
-                <div class="ctrl-head"><span class="ctrl-lbl">% de anticongelante en agua</span><span class="ctrl-val" id="anti-pct-v">40%</span></div>
+                <div class="ctrl-head"><span class="ctrl-lbl">% de anticongelante en el depósito</span><span class="ctrl-val" id="anti-pct-v">40%</span></div>
                 <input type="range" class="g" min="0" max="65" step="1" value="40" oninput="antiUpdate(this.value)">
               </div>
               <div class="result-badge">
-                <span class="rb-label">El líquido congela a:</span>
+                <span class="rb-label">El agua congela a:</span>
                 <span class="rb-value" id="anti-result">—</span>
               </div>
               <div class="rb-note" id="anti-note">—</div>
@@ -395,34 +478,35 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
       </div>
     </div>
 
+    <!-- SAL CARRETERAS -->
     <div class="rl-panel" id="rl-carretera">
       <div class="big-card">
         <div class="big-card-top">
           <div class="big-card-story">
             <div class="tag" style="background:rgba(186,230,253,.1);border-color:rgba(186,230,253,.25);color:var(--ice)">🧊 Descenso crioscópico</div>
-            <h2>Sal para derretir el hielo en calzadas</h2>
-            <p>La sal no "calienta" el hielo. Al disolverse en la fina capa de humedad que hay sobre la carretera helada, crea una solución de agua salada cuyo punto de congelación es muy inferior a 0°C, haciendo que el hielo se funda.</p>
-            <p><strong>Uso en la vida cotidiana:</strong><br>
-            • <strong>NaCl (Sal común):</strong> Se usa por defecto. Es barata y efectiva hasta los -9°C aproximadamente. Al disolverse genera 2 partículas (Na⁺ y Cl⁻).<br>
-            • <strong>CaCl₂ (Cloruro de calcio):</strong> Se usa en situaciones extremas. Genera 3 partículas, por lo que su efecto coligativo es mucho mayor y puede derretir hielo hasta a -30°C.</p>
+            <h2>¿Por qué echan sal en las carreteras heladas?</h2>
+            <p>En invierno, cuando la calzada se hiela, los operarios esparcen sal. Pero, ¿cómo funciona exactamente? ¿La sal calienta el hielo? No. Hace algo mucho más interesante.</p>
+            <p>La sal (NaCl) se disuelve en la finísima capa de agua líquida que siempre existe sobre el hielo. Esa solución salada ya no puede congelar a 0°C — necesita <strong>temperaturas más bajas</strong>. Así, el hielo se funde aunque no haya calor.</p>
+            <p>La clave es que la sal se divide en <strong>dos iones</strong> (Na⁺ + Cl⁻), así que produce el doble de efecto que si fuera azúcar. El CaCl₂ se divide en tres iones y es aún más eficaz.</p>
+            <div class="analogy"><strong>La analogía:</strong> es como si hubieras puesto tantos "intrusos" en el rompecabezas del hielo que ya no puede ensamblarse correctamente salvo que haga mucho más frío.</div>
           </div>
           <div class="big-card-sim">
             <div class="sim-vis"><canvas id="cv-road" height="220"></canvas></div>
             <div class="sim-ctrl">
-              <h4>🎛️ Echar sal al asfalto</h4>
+              <h4>🎛️ Prueba tú mismo</h4>
               <div class="ctrl-row">
-                <div class="ctrl-head"><span class="ctrl-lbl">Gramos de sal (por 100g de agua)</span><span class="ctrl-val" id="road-g-v">20g</span></div>
+                <div class="ctrl-head"><span class="ctrl-lbl">Gramos de sal por 100g de agua</span><span class="ctrl-val" id="road-g-v">20g</span></div>
                 <input type="range" class="c" min="1" max="35" step="0.5" value="20" oninput="roadUpdate('g',this.value)">
               </div>
               <div class="ctrl-row">
                 <div class="ctrl-head"><span class="ctrl-lbl">Tipo de sal</span><span class="ctrl-val" id="road-salt-v">NaCl</span></div>
                 <div style="display:flex;gap:4px;margin-top:4px">
-                  <button class="cmp on" id="rs-nacl"  onclick="roadSalt('NaCl',2,58.44)"  style="flex:1;font-size:.7rem;padding:.5rem">NaCl (Uso general)</button>
-                  <button class="cmp"    id="rs-cacl2" onclick="roadSalt('CaCl₂',3,111.0)" style="flex:1;font-size:.7rem;padding:.5rem">CaCl₂ (Hielo extremo)</button>
+                  <button class="cmp on" id="rs-nacl"  onclick="roadSalt('NaCl',2,58.44)"  style="flex:1;font-size:.7rem;padding:.4rem">NaCl (i=2)</button>
+                  <button class="cmp"    id="rs-cacl2" onclick="roadSalt('CaCl₂',3,111.0)" style="flex:1;font-size:.7rem;padding:.4rem">CaCl₂ (i=3)</button>
                 </div>
               </div>
               <div class="result-badge">
-                <span class="rb-label">Funde el hielo hasta:</span>
+                <span class="rb-label">Congela a:</span>
                 <span class="rb-value" id="road-result">—</span>
               </div>
               <div class="rb-note" id="road-note">—</div>
@@ -432,25 +516,28 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
       </div>
     </div>
 
+    <!-- LIXIVIADOS -->
     <div class="rl-panel" id="rl-lixiviados">
       <div class="big-card">
         <div class="big-card-top">
           <div class="big-card-story">
             <div class="tag" style="background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.25);color:var(--purple)">🔬 Presión osmótica</div>
-            <h2>Limpiar aguas muy tóxicas (Lixiviados)</h2>
-            <p>Los vertederos generan "lixiviado", un líquido oscuro cargado de contaminantes y sales. Para purificarlo y no contaminar el medio ambiente, se usan plantas de <strong>Ósmosis Inversa</strong>.</p>
-            <p>La ósmosis natural haría que el agua limpia fluyera hacia la sucia para diluirla. Para revertir esto, las bombas industriales deben aplicar una presión hidráulica <strong>mayor que la presión osmótica natural (Π)</strong> del lixiviado. Cuanto más concentrada esté la suciedad, más presión (y energía) se requiere para empujar el agua limpia a través de los filtros.</p>
+            <h2>Tratar el agua tóxica de los vertederos</h2>
+            <p>Los vertederos generan un líquido muy peligroso llamado <strong>lixiviado</strong> — básicamente, el "jugo" que escurre de toda la basura mezclada con lluvia. Está cargado de metales pesados, bacterias y productos químicos. No puede verterse directamente al río.</p>
+            <p>Una de las tecnologías para tratarlo es la <strong>ósmosis inversa</strong>: se aplica una presión enorme sobre el lixiviado para forzar que el agua pase a través de una membrana muy fina, dejando atrás todos los contaminantes.</p>
+            <p>Para que funcione, la presión aplicada debe ser <strong>mayor que la presión osmótica</strong> del lixiviado. Cuantos más contaminantes tiene el agua (más concentrada está), mayor presión hace falta. La fórmula Π = iMRT nos dice exactamente cuánta.</p>
+            <div class="analogy"><strong>La analogía:</strong> imagina un colador muy fino (la membrana). El agua pura puede pasar, pero las partículas grandes no. Para forzar al agua a atravesarlo aunque haya mucha presión del otro lado, tienes que apretar más fuerte.</div>
           </div>
           <div class="big-card-sim">
             <div class="sim-vis"><canvas id="cv-leach" height="220"></canvas></div>
             <div class="sim-ctrl">
-              <h4>🎛️ Planta de filtrado</h4>
+              <h4>🎛️ Prueba tú mismo</h4>
               <div class="ctrl-row">
-                <div class="ctrl-head"><span class="ctrl-lbl">Concentración de tóxicos (g/L)</span><span class="ctrl-val" id="leach-c-v">20 g/L</span></div>
+                <div class="ctrl-head"><span class="ctrl-lbl">Concentración de contaminantes (g/L)</span><span class="ctrl-val" id="leach-c-v">20 g/L</span></div>
                 <input type="range" class="p" min="1" max="80" step="1" value="20" oninput="leachUpdate(this.value)">
               </div>
               <div class="result-badge">
-                <span class="rb-label">Presión Osmótica Natural (Π):</span>
+                <span class="rb-label">Presión osmótica:</span>
                 <span class="rb-value" id="leach-result">—</span>
               </div>
               <div class="rb-note" id="leach-note">—</div>
@@ -462,70 +549,129 @@ input[type=range].p::-webkit-slider-thumb { background: var(--purple); }
   </div>
 </div>
 
+<!-- ══ THEORY ══ -->
 <div class="page" id="pg-theory">
   <div class="wrap">
-    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.3rem">Teoría y Fórmulas</h2>
+    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.3rem">¿Cómo funciona todo esto?</h2>
+    <p style="color:var(--txt2);font-size:.95rem;max-width:640px;line-height:1.7">Cuando disuelves algo en agua, cambias cuántas moléculas de agua están "libres". Eso afecta a cómo congela, hierve, se evapora y se mueve. Estos cuatro efectos se llaman <strong style="color:var(--cyan)">propiedades coligativas</strong>.</p>
     <div class="th-grid">
       <div class="th-card tc-c">
         <div class="th-h">🔬 Presión Osmótica</div>
+        <div class="th-simple">💡 <strong>En palabras sencillas:</strong> cuando tienes agua salada a un lado de un filtro muy fino y agua pura al otro, el agua pura "intenta" cruzar para diluir la sal. La presión que ejerce ese empuje se llama presión osmótica.</div>
         <div class="th-formula">Π = i · M · R · T</div>
-        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Presión necesaria para detener el flujo de solvente puro hacia la solución a través de una membrana semipermeable. A mayor temperatura o concentración, mayor presión.</p>
+        <div class="th-p">Donde <em>i</em> es el número de trozos en que se parte la molécula al disolverse, <em>M</em> es cuánto hay disuelto (mol/L), <em>R</em> es una constante (0.082) y <em>T</em> es la temperatura en Kelvin.</div>
+        <div class="th-steps">
+          <div class="th-step"><div class="th-step-num">1</div><span>Más concentración → más presión osmótica.</span></div>
+          <div class="th-step"><div class="th-step-num">2</div><span>La sal (i=2) genera el doble de presión que el azúcar (i=1) a igual concentración.</span></div>
+          <div class="th-step"><div class="th-step-num">3</div><span>A mayor temperatura, mayor presión (las moléculas tienen más energía).</span></div>
+        </div>
       </div>
       <div class="th-card tc-g">
         <div class="th-h">🧊 Descenso Crioscópico</div>
-        <div class="th-formula">ΔTf = Kf · m · i</div>
-        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Redución del punto de congelación del solvente. El soluto estorba la cristalización del líquido. Constante del agua: Kf = 1.86 °C·kg/mol.</p>
+        <div class="th-simple">💡 <strong>En palabras sencillas:</strong> para que el agua congele, sus moléculas tienen que colocarse en un orden muy preciso (como un rompecabezas). Las partículas disueltas estorban ese proceso y necesitas más frío.</div>
+        <div class="th-formula">ΔTf = Kf · m · i<br><small style="font-size:.7rem;color:var(--txt3)">Kf(agua) = 1.86 °C·kg/mol</small></div>
+        <div class="th-p">El agua congela <em>ΔTf grados menos</em> de lo normal. Si ΔTf = 3.72°C, el agua congela a −3.72°C en vez de 0°C. <em>Kf</em> es una constante del solvente, no del soluto — siempre 1.86 para el agua.</div>
+        <div class="th-steps">
+          <div class="th-step"><div class="th-step-num">1</div><span>1 mol/kg de glucosa baja el punto de congelación en 1.86°C.</span></div>
+          <div class="th-step"><div class="th-step-num">2</div><span>1 mol/kg de NaCl (i=2) lo baja 3.72°C — el doble.</span></div>
+          <div class="th-step"><div class="th-step-num">3</div><span>El hielo que se forma es casi agua pura — el soluto queda en el líquido.</span></div>
+        </div>
       </div>
       <div class="th-card tc-a">
         <div class="th-h">♨️ Elevación Ebulloscópica</div>
-        <div class="th-formula">ΔTb = Kb · m · i</div>
-        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Aumento del punto de ebullición. Las moléculas disueltas reducen la presión de vapor, exigiendo más calor para hervir. Kb del agua = 0.512 °C·kg/mol.</p>
+        <div class="th-simple">💡 <strong>En palabras sencillas:</strong> para hervir, el agua necesita que sus moléculas tengan suficiente energía para escapar al aire. Las partículas disueltas "distraen" a las moléculas de agua y hacen que necesiten más calor para escapar.</div>
+        <div class="th-formula">ΔTb = Kb · m · i<br><small style="font-size:.7rem;color:var(--txt3)">Kb(agua) = 0.512 °C·kg/mol</small></div>
+        <div class="th-p">El agua hierve <em>ΔTb grados más</em> de lo normal. La constante Kb del agua (0.512) es menor que Kf (1.86), por eso la sal afecta más al punto de congelación que al de ebullición.</div>
+        <div class="th-steps">
+          <div class="th-step"><div class="th-step-num">1</div><span>Echar sal a la pasta apenas sube el punto de ebullición (+0.03°C por la cantidad que usas).</span></div>
+          <div class="th-step"><div class="th-step-num">2</div><span>El vapor que sale es agua casi pura — el soluto no se evapora.</span></div>
+          <div class="th-step"><div class="th-step-num">3</div><span>A gran altitud el agua hierve más fría, y esto compensa ligeramente.</span></div>
+        </div>
       </div>
       <div class="th-card tc-p">
-        <div class="th-h">💨 Presión de Vapor</div>
-        <div class="th-formula">P = χ₁ · P°</div>
-        <p style="font-size: .85rem; color: var(--txt2); line-height: 1.6">Ley de Raoult. Al añadir soluto, hay menos moléculas de disolvente en la superficie, por lo que escapan menos a la fase gaseosa.</p>
+        <div class="th-h">💨 Presión de Vapor (Ley de Raoult)</div>
+        <div class="th-simple">💡 <strong>En palabras sencillas:</strong> imagina la superficie del agua como una pista de baile. Las partículas disueltas ocupan parte del espacio, dejando menos sitio para que las moléculas de agua "salten" al aire. Resultado: se evapora menos.</div>
+        <div class="th-formula">P = χ₁ · P° → ΔP = χ₂ · P°<br><small style="font-size:.7rem;color:var(--txt3)">χ₁ = fracción de agua en la mezcla</small></div>
+        <div class="th-p">Este es el <em>fenómeno madre</em> de los demás: si la presión de vapor baja, el punto de congelación baja, el de ebullición sube, y aparece la ósmosis. Todo deriva de que hay "menos agua libre".</div>
+        <div class="th-steps">
+          <div class="th-step"><div class="th-step-num">1</div><span>Si el 5% de la superficie está ocupada por soluto, la presión de vapor baja ~5%.</span></div>
+          <div class="th-step"><div class="th-step-num">2</div><span>Válido para soluciones ideales diluidas (la mayoría de los casos prácticos).</span></div>
+          <div class="th-step"><div class="th-step-num">3</div><span>El sudor, las bebidas, los alimentos — todos siguen esta ley.</span></div>
+        </div>
       </div>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:1.5rem">
+      <div style="background:var(--card);padding:.75rem 1.2rem;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);border-bottom:1px solid var(--border)">Constantes de solventes comunes</div>
+      <table><tr><th>Solvente</th><th>Tf° (°C)</th><th>Kf (°C·kg/mol)</th><th>Tb° (°C)</th><th>Kb (°C·kg/mol)</th></tr>
+      <tr><td>Agua</td><td>0.00</td><td>1.86</td><td>100.00</td><td>0.512</td></tr>
+      <tr><td>Benceno</td><td>5.53</td><td>5.12</td><td>80.10</td><td>2.53</td></tr>
+      <tr><td>Ciclohexano</td><td>6.55</td><td>20.0</td><td>80.74</td><td>2.79</td></tr>
+      <tr><td>Etanol</td><td>−114.1</td><td>1.99</td><td>78.37</td><td>1.22</td></tr>
+      <tr><td>Acetona</td><td>−94.7</td><td>2.40</td><td>56.05</td><td>1.71</td></tr></table>
     </div>
   </div>
 </div>
 
+<!-- ══ CALC ══ -->
 <div class="page" id="pg-calc">
   <div class="wrap">
     <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.3rem">Calculadora</h2>
+    <p style="color:var(--txt2);font-size:.95rem;margin-bottom:1.5rem;max-width:600px">Introduce los datos de tu solución y calcula automáticamente las cuatro propiedades coligativas con los pasos.</p>
     <div class="calc-card">
-      <div class="calc-hd"><h3>⚗️ Calculadora Coligativa</h3></div>
+      <div class="calc-hd"><h3>⚗️ Calculadora de propiedades coligativas</h3><span style="font-size:.72rem;color:var(--txt3)">Resultados al instante</span></div>
       <div class="calc-body">
         <div class="fg"><label class="fl">Sustancia disuelta</label>
-          <select class="fi" id="c-sol">
-            <option value="NaCl|2|58.44">Sal común — NaCl (i=2)</option>
-            <option value="CaCl2|3|111.0">Cloruro de calcio — CaCl₂ (i=3)</option>
-            <option value="C6H12O6|1|180.16">Glucosa (i=1)</option>
+          <select class="fi" id="c-sol" onchange="calcSoluteChange()">
+            <option value="NaCl|2|58.44">Sal común — NaCl (se rompe en 2)</option>
+            <option value="CaCl2|3|111.0">Cloruro de calcio — CaCl₂ (se rompe en 3)</option>
+            <option value="C6H12O6|1|180.16">Glucosa (azúcar simple, no se rompe)</option>
+            <option value="C12H22O11|1|342.3">Sacarosa (azúcar de mesa, no se rompe)</option>
+            <option value="KCl|2|74.55">Cloruro de potasio — KCl (se rompe en 2)</option>
+            <option value="MgCl2|3|95.21">Cloruro de magnesio — MgCl₂ (se rompe en 3)</option>
+            <option value="custom|1|0">Personalizado…</option>
           </select>
         </div>
-        <div class="fg"><label class="fl">Solvente</label>
+        <div class="fg"><label class="fl">Solvente (líquido base)</label>
           <select class="fi" id="c-solv">
             <option value="agua|1.86|0.512|0|100|18.015">Agua</option>
+            <option value="benceno|5.12|2.53|5.53|80.1|78.11">Benceno</option>
+            <option value="ciclohexano|20.0|2.79|6.55|80.74|84.16">Ciclohexano</option>
           </select>
         </div>
-        <div class="fg"><label class="fl">Masa soluto (g)</label><input class="fi" type="number" id="c-ms" value="10" step="0.1"></div>
-        <div class="fg"><label class="fl">Masa solvente (g)</label><input class="fi" type="number" id="c-mv" value="100" step="0.1"></div>
+        <div class="fg"><label class="fl">Cantidad de soluto (g)</label><input class="fi" type="number" id="c-ms" value="10" step="0.01" min="0.001"></div>
+        <div class="fg"><label class="fl">Cantidad de solvente (g)</label><input class="fi" type="number" id="c-mv" value="100" step="0.1" min="0.1"></div>
         <div class="fg"><label class="fl">Temperatura (°C)</label><input class="fi" type="number" id="c-T" value="25" step="0.1"></div>
-        <button class="calc-go" onclick="doCalc()">⚡ Calcular</button>
+        <div class="fg"><label class="fl">Volumen de solución (L) — para Π</label><input class="fi" type="number" id="c-V" value="1.0" step="0.01" min="0.001"></div>
+        <div class="fg" id="cust-M" style="display:none"><label class="fl">Masa molar (g/mol)</label><input class="fi" type="number" id="c-cM" value="100"></div>
+        <div class="fg" id="cust-i" style="display:none"><label class="fl">En cuántos trozos se rompe (i)</label><input class="fi" type="number" id="c-ci" value="1" step="0.1" min="1"></div>
+        <button class="calc-go" onclick="doCalc()">⚡ Calcular ahora</button>
+        <div class="results-grid" id="calc-res">
+          <div class="ri"><div class="ri-l">Molalidad</div><div class="ri-v" id="r-m">—</div></div>
+          <div class="ri"><div class="ri-l">Molaridad</div><div class="ri-v" id="r-M">—</div></div>
+          <div class="ri"><div class="ri-l">Baja congelac. (°C)</div><div class="ri-v" id="r-dtf">—</div></div>
+          <div class="ri"><div class="ri-l">Congela a (°C)</div><div class="ri-v" id="r-tf">—</div></div>
+          <div class="ri"><div class="ri-l">Sube ebullición (°C)</div><div class="ri-v" id="r-dtb">—</div></div>
+          <div class="ri"><div class="ri-l">Hierve a (°C)</div><div class="ri-v" id="r-tb">—</div></div>
+          <div class="ri"><div class="ri-l">Presión osmótica (atm)</div><div class="ri-v" id="r-pi">—</div></div>
+          <div class="ri"><div class="ri-l">Baja P.vapor (%)</div><div class="ri-v" id="r-dp">—</div></div>
+        </div>
+        <div class="step-report" id="c-report"></div>
       </div>
-      <div style="padding: 1rem 1.4rem; background: var(--bg)" id="calc-out">...</div>
     </div>
   </div>
 </div>
 
 <div id="tip"></div>
+<div class="toast" id="toast"><div class="ti" id="t-i">✅</div><div><div class="tt" id="t-t">—</div><div class="ts" id="t-s">—</div></div></div>
 
 <script>
 // ═══════════════════════════════════════════════════════
-//  Core State
+//  PropColigativas Lab — Clean Engine v4
 // ═══════════════════════════════════════════════════════
 const RG = 0.08206;
-const S = { exp:'osmotica', cmp:{name:'NaCl',i:2,M:58.44}, m:1, Mo:1, T:25, i:2, tick:0 };
+
+// ── State ──────────────────────────────────────────────
+const S = { exp:'osmotica', cmp:{name:'NaCl',i:2,M:58.44}, m:1, Mo:1, T:25, i:2, running:true, tick:0 };
 const RL = {
   anti: { pct:40 },
   road: { g:20, saltName:'NaCl', saltI:2, saltM:58.44 },
@@ -537,16 +683,13 @@ function goPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
   document.getElementById('pg-' + id).classList.add('on');
-  
   const labels = { home:'Inicio', lab:'Simulación', real:'Vida Real', theory:'Teoría', calc:'Calculadora' };
   document.querySelectorAll('.ntab').forEach(t => { if (t.textContent.trim() === labels[id]) t.classList.add('on'); });
-  window.scrollTo(0,0);
-  
   if (id === 'lab') initLab();
   if (id === 'real') initRealLife();
 }
 
-// ── Lab Controls ───────────────────────────────────────
+// ── Lab controls ───────────────────────────────────────
 function setExp(e) {
   S.exp = e;
   document.querySelectorAll('.expbtn').forEach(b => b.classList.remove('on'));
@@ -559,6 +702,8 @@ function setExp(e) {
 
 function setCmp(name, i, M) {
   S.cmp = { name, i, M }; S.i = i;
+  document.getElementById('sl-i').value = i;
+  document.getElementById('v-i').textContent = i.toFixed(1);
   document.querySelectorAll('.cmp').forEach(b => b.classList.toggle('on', b.dataset.c === name));
   spawnP(); refreshPanel();
 }
@@ -568,15 +713,11 @@ function onSl(k, v) {
   if (k === 'm') { S.m = f; document.getElementById('v-m').textContent = f.toFixed(2); }
   if (k === 'M') { S.Mo = f; document.getElementById('v-M').textContent = f.toFixed(2); }
   if (k === 'T') { S.T = f; document.getElementById('v-T').textContent = f.toFixed(1); }
-  
-  spawnP(); // Fix: Visual update immediately
+  if (k === 'i') { S.i = f; document.getElementById('v-i').textContent = f.toFixed(1); }
   refreshPanel();
 }
 
-function resetSim() {
-  S.tick = 0; ptick = 0; spawnP(); refreshPanel();
-}
-
+// ── Chemistry calculations ──────────────────────────────
 function calcAll() {
   const { m, Mo, T, i } = S, Tk = T + 273.15;
   const dtf = 1.86 * m * i;
@@ -590,382 +731,741 @@ function calcAll() {
 function refreshPanel() {
   const { dtf, dtb, pi, dpp } = calcAll();
   const { m, Mo, T, i } = S, Tk = (T + 273.15).toFixed(1);
-  
   document.getElementById('m-pi').textContent  = pi.toFixed(2);
-  document.getElementById('m-dtf').textContent = (0-dtf).toFixed(2);
-  document.getElementById('m-dtb').textContent = (100+dtb).toFixed(2);
+  document.getElementById('m-dtf').textContent = dtf.toFixed(3);
+  document.getElementById('m-dtb').textContent = dtb.toFixed(3);
   document.getElementById('m-dp').textContent  = dpp.toFixed(2);
 
   const eqs = {
-    osmotica:     { eq:`Π = i × M × R × T\n= ${i} × ${Mo.toFixed(2)} × 0.082 × ${Tk}`, res:`Π = ${pi.toFixed(2)} atm` },
-    crioscopia:   { eq:`ΔTf = Kf × m × i\n= 1.86 × ${m.toFixed(2)} × ${i}`,          res:`ΔTf = ${dtf.toFixed(2)} °C` },
-    ebullioscopia:{ eq:`ΔTb = Kb × m × i\n= 0.512 × ${m.toFixed(2)} × ${i}`,         res:`ΔTb = ${dtb.toFixed(2)} °C` },
-    vapor:        { eq:`ΔP/P° = χ_soluto × i × 100`,                                 res:`Disminución = ${dpp.toFixed(2)} %` }
+    osmotica:     { eq:`Π = i × M × R × T\n= ${i} × ${Mo.toFixed(2)} × 0.082 × ${Tk}`, res:`Π = ${pi.toFixed(3)} atm` },
+    crioscopia:   { eq:`ΔTf = 1.86 × m × i\n= 1.86 × ${m.toFixed(2)} × ${i}`,            res:`ΔTf = ${dtf.toFixed(3)} °C → Tf = ${(0-dtf).toFixed(3)} °C` },
+    ebullioscopia:{ eq:`ΔTb = 0.512 × m × i\n= 0.512 × ${m.toFixed(2)} × ${i}`,          res:`ΔTb = ${dtb.toFixed(3)} °C → Tb = ${(100+dtb).toFixed(3)} °C` },
+    vapor:        { eq:`χ_soluto ≈ m×0.018\nΔP/P° = χ × i × 100`,                         res:`ΔP/P° = ${dpp.toFixed(2)} %` }
   };
-  document.getElementById('fbox-eq').textContent = eqs[S.exp].eq;
-  document.getElementById('fbox-res').textContent = eqs[S.exp].res;
+  const eq = eqs[S.exp];
+  document.getElementById('fbox-eq').textContent = eq.eq;
+  document.getElementById('fbox-res').textContent = eq.res;
 
   const expl = {
-    osmotica: `<strong>El agua pura busca diluir la sal:</strong> El líquido atraviesa la membrana central hacia la derecha para igualar concentraciones. A mayor molaridad (M), mayor presión (atm) ejerce este flujo.`,
-    crioscopia: `<strong>El hielo necesita orden:</strong> Las moléculas disueltas estorban la formación de cristales de hielo. Por eso necesitas mucha más temperatura negativa para congelar el líquido. El bloque inferior ilustra el hielo puro formándose.`,
-    ebullioscopia: `<strong>Hervir cuesta más:</strong> Las partículas disueltas atrapan el agua, dificultando que salte a estado gaseoso. Fíjate cómo al subir la concentración baja la cantidad de burbujas hasta que aplicas más temperatura.`,
-    vapor: `<strong>Superficie ocupada:</strong> El soluto ocupa espacio en la interfaz líquido/aire, dejando menos "ventanas" para que el agua escape. Menos vapor arriba significa menor presión de vapor.`
+    osmotica: `<strong>Lo que ves:</strong> Un tubo en U. Izquierda: agua pura (bolitas 💧azules). Derecha: agua con sal (bolitas 💧azules + 🔴🟢iones). En el centro hay una membrana (línea punteada).
+      <div class="exstep"><span class="eico">💧</span><strong>¿Por qué se mueve el agua?</strong> El agua pura tiene "más espacio libre" que la salada. El agua siempre intenta fluir hacia donde hay menos agua libre para igualar. Eso crea una presión — la presión osmótica.</div>
+      <div class="exstep"><span class="eico">🔴🟢</span><strong>La sal se rompe en 2:</strong> NaCl → Na⁺ (rojo) + Cl⁻ (verde). Dos partículas donde antes había una, así que duplica el efecto.</div>
+      <div class="exstep"><span class="eico">↑</span><strong>La flecha verde</strong> muestra la presión osmótica calculada. Cuantas más partículas o más temperatura, más sube.</div>`,
+    crioscopia: `<strong>Lo que ves:</strong> Un vaso con solución. En el fondo aparece hielo (cristales). El termómetro de la derecha muestra la temperatura a la que congela ahora.
+      <div class="exstep"><span class="eico">❄️</span><strong>¿Por qué congela más tarde?</strong> Para congelarse, las moléculas de agua deben ordenarse en hileras perfectas (como piezas de Lego). Las partículas de sal meten "piezas mal encajadas" en el conjunto y lo dificultan. Necesitas más frío.</div>
+      <div class="exstep"><span class="eico">🧪</span><strong>El hielo es casi puro:</strong> cuando por fin congela, el hielo que se forma es agua casi pura. El soluto queda en el líquido. Por eso el hielo del fondo es más claro.</div>
+      <div class="exstep"><span class="eico">📊</span>Mueve el slider de cantidad y verás cómo crece la capa de hielo y el termómetro baja más.</div>`,
+    ebullioscopia: `<strong>Lo que ves:</strong> Un matraz calentado. Las burbujas son vapor de agua ascendiendo. El soluto (naranja) dificulta la escapada de las moléculas de agua.
+      <div class="exstep"><span class="eico">♨️</span><strong>¿Por qué hierve más tarde?</strong> Para hervir, el agua necesita que las moléculas tengan energía suficiente para "saltar" al aire. El soluto las rodea y les cuesta más saltar. Necesitas más calor.</div>
+      <div class="exstep"><span class="eico">💨</span><strong>El vapor sale puro:</strong> las partículas de sal no se evaporan, así que el vapor que ves salir es agua casi pura.</div>
+      <div class="exstep"><span class="eico">🍝</span>La sal que echas a la pasta apenas sube el punto de ebullición (< 0.1°C con cantidades normales). La función de la sal es dar sabor, no acelerar la cocción.</div>`,
+    vapor: `<strong>Lo que ves:</strong> Un recipiente cerrado. La parte inferior es líquido (azul + naranja). Las bolitas moradas en la parte superior son moléculas de agua que han escapado al aire (vapor).
+      <div class="exstep"><span class="eico">💨</span><strong>¿Por qué hay menos vapor?</strong> Las partículas de soluto (naranja) ocupan parte de la superficie del líquido. Hay menos "ventanas" por donde el agua puede escapar, así que se evapora menos.</div>
+      <div class="exstep"><span class="eico">🌡️</span><strong>Este es el fenómeno raíz:</strong> si hay menos vapor, el punto de congelación baja, el de ebullición sube, y el agua fluye por ósmosis. Todo viene de que hay menos agua libre.</div>
+      <div class="exstep"><span class="eico">📊</span>El manómetro de la derecha muestra la presión de vapor actual comparada con la del agua pura.</div>`
   };
   document.getElementById('explain').innerHTML = expl[S.exp];
   drawGraph();
 }
 
-// ── Canvas Lab System ───────────────────────────────────
+// ── Canvas Lab ──────────────────────────────────────────
 let cvs, ctx, RAF, particles = [], ptick = 0;
+let mx = 0, my = 0, hovP = null;
 
 function getZone(W, H) {
-  if (S.exp === 'osmotica') return { type:'utube', lx:W*.1, rx:W*.55, top:H*.2, bot:H*.9, cw:W*.35, mem:W/2 };
-  if (S.exp === 'crioscopia') return { type:'beaker', x:W*.2, y:H*.15, w:W*.6, h:H*.7 };
-  if (S.exp === 'ebullioscopia') return { type:'flask', fx:W*.2, fy:H*.1, fw:W*.6, fh:H*.75, nkX:W*.4, nkW:W*.2, nkH:H*.3 };
-  return { type:'closed', x:W*.2, y:H*.1, w:W*.6, h:H*.7, surfY:H*.45, lx:W*.2+4, ly:H*.45, lw:W*.6-8, lh:H*.65-H*.45 };
+  if (S.exp === 'osmotica') {
+    const cw=64, ch=H*.56, bot=H*.83, top=bot-ch;
+    const lx=W/2-115, rx=W/2+115-cw, mem=W/2;
+    return { type:'utube', lx, rx, top, bot, cw, ch, mem };
+  }
+  if (S.exp === 'crioscopia') {
+    const bw=200, bh=H*.58, bx=W/2-100, by=H*.17;
+    return { type:'beaker', x:bx, y:by, w:bw, h:bh };
+  }
+  if (S.exp === 'ebullioscopia') {
+    const fw=178, fh=H*.52, fx=W/2-89, fy=H*.13;
+    const nkW=fw*.3, nkH=fh*.28, nkX=fx+(fw-fw*.3)/2;
+    return { type:'flask', fx, fy, fw, fh, nkX, nkW, nkH };
+  }
+  const vw=220, vh=H*.58, vx=W/2-110, vy=H*.12, surfY=vy+vh*.37;
+  return { type:'closed', x:vx, y:vy, w:vw, h:vh, surfY, lx:vx+4, ly:surfY, lw:vw-8, lh:vy+vh-surfY-4 };
 }
 
 function initLab() {
-  if (RAF) cancelAnimationFrame(RAF);
+  if (RAF) { cancelAnimationFrame(RAF); RAF = null; }
   cvs = document.getElementById('lab-cv');
   ctx = cvs.getContext('2d');
-  
   function resize() {
-    cvs.width = cvs.parentElement.clientWidth;
-    cvs.height = cvs.parentElement.clientHeight;
+    const p = cvs.parentElement;
+    cvs.width = p.clientWidth;
+    cvs.height = p.clientHeight;
     spawnP();
   }
+  if (window._lr) window.removeEventListener('resize', window._lr);
+  window._lr = resize;
   window.addEventListener('resize', resize);
   resize();
-
-  // Mobile-friendly touch & mouse events for tooltip
-  const handlePointer = (e) => {
-    const rect = cvs.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-    let found = particles.find(p => Math.hypot(p.x - x, p.y - y) < p.r + 10);
+  cvs.onmousemove = function(e) {
+    const r = cvs.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+    let found = null;
+    for (const p of particles) {
+      const d = Math.hypot(p.x - mx, p.y - my);
+      if (d < p.r + 9) { found = p; break; }
+    }
     const tt = document.getElementById('tip');
     if (found) {
-      tt.innerHTML = found.type === 'solvent' ? '💧 H₂O pura' : '🟣 Soluto/Ion';
+      hovP = found;
+      tt.innerHTML = getTip(found);
       tt.style.display = 'block';
-      tt.style.left = (e.touches ? e.touches[0].clientX : e.clientX) + 10 + 'px';
-      tt.style.top = (e.touches ? e.touches[0].clientY : e.clientY) - 10 + 'px';
+      tt.style.left = (e.clientX + 14) + 'px';
+      tt.style.top  = (e.clientY - 12) + 'px';
     } else {
-      tt.style.display = 'none';
+      hovP = null; tt.style.display = 'none';
     }
   };
-  cvs.onmousemove = handlePointer;
-  cvs.ontouchstart = handlePointer;
-  cvs.onmouseleave = () => document.getElementById('tip').style.display = 'none';
-
+  cvs.onmouseleave = function() { hovP = null; document.getElementById('tip').style.display = 'none'; };
   RAF = requestAnimationFrame(loop);
+  refreshPanel();
+}
+
+function getTip(p) {
+  const tips = {
+    solvent: `<strong>💧 Molécula de agua</strong><br>H₂O — el líquido base.<br><em>Puede cruzar la membrana osmótica.</em><br>Se mueve más rápido al subir la temperatura.`,
+    solute: `<strong>🟡 Molécula de soluto (${S.cmp.name})</strong><br>No se disocia en iones.<br><em>i = 1 partícula por molécula.</em><br>No cruza la membrana osmótica.`,
+    ion_pos: `<strong>🔴 Ion positivo (catión)</strong><br>${S.cmp.name} se disocia al disolverse.<br><em>Cada ion cuenta como 1 partícula extra.</em><br>Por eso la sal produce el doble de efecto que el azúcar.`,
+    ion_neg: `<strong>🟢 Ion negativo (anión, Cl⁻)</strong><br>Formado al disolverse ${S.cmp.name}.<br><em>NaCl → Na⁺ + Cl⁻ = 2 partículas</em><br>CaCl₂ → Ca²⁺ + 2Cl⁻ = 3 partículas`,
+    vapor: `<strong>🟣 Vapor de agua</strong><br>Molécula de H₂O en fase gaseosa.<br><em>Hay menos de estas con soluto presente.</em><br>Menos vapor = menor presión de vapor.`
+  };
+  return tips[p.tipK] || `<strong>${p.type}</strong>`;
 }
 
 function spawnP() {
   if (!cvs) return;
   particles = [];
-  const W = cvs.width, H = cvs.height, z = getZone(W, H);
-  // Cap particles to avoid lag
-  const nS = Math.min(60, Math.max(5, Math.round(S.Mo * 15))); 
-  const nW = 50; 
+  const W = cvs.width, H = cvs.height;
+  const z = getZone(W, H);
+  const nW = 70, nS = Math.max(5, Math.round(S.Mo * 14));
   const isIon = S.i > 1;
-  const rnd = (a,b) => a+Math.random()*(b-a);
-  
-  const addP = (x, y, t, s, col) => particles.push({ x, y, vx:(Math.random()-.5), vy:(Math.random()-.5), r:t==='solvent'?3:5, type:t, side:s, color:col, a:1 });
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  function mkP(x, y, type, side, tipK, col, r) {
+    return { x, y, vx:(Math.random()-.5)*1.2, vy:(Math.random()-.5)*1.2, r:r||3.5, type, side:side||'', tipK:tipK||type, color:col, alpha:.75+Math.random()*.18 };
+  }
 
   if (z.type === 'utube') {
-    for (let i=0; i<nW; i++) addP(rnd(z.lx+5,z.lx+z.cw-5), rnd(z.top,z.bot), 'solvent', 'left', '#22d3ee');
-    for (let i=0; i<nS; i++) addP(rnd(z.rx+5,z.rx+z.cw-5), rnd(z.top,z.bot), 'solute', 'right', isIon?(i%2===0?'#ef4444':'#10b981'):'#f59e0b');
-    for (let i=0; i<nW*.3; i++) addP(rnd(z.rx+5,z.rx+z.cw-5), rnd(z.top,z.bot), 'solvent', 'right', '#22d3ee');
+    for (let k = 0; k < nW; k++) particles.push(mkP(rnd(z.lx+5,z.lx+z.cw-5), rnd(z.top+5,z.bot-5), 'solvent','left','solvent','#22d3ee'));
+    for (let k = 0; k < nS; k++) {
+      const tK = isIon ? (k%2===0?'ion_pos':'ion_neg') : 'solute';
+      const col = isIon ? (k%2===0?'#ef4444':'#10b981') : '#f59e0b';
+      particles.push(mkP(rnd(z.rx+5,z.rx+z.cw-5), rnd(z.top+5,z.bot-5), 'solute','right',tK,col,4.5));
+    }
+    for (let k = 0; k < Math.round(nW*.35); k++) particles.push(mkP(rnd(z.rx+5,z.rx+z.cw-5), rnd(z.top+5,z.bot-5), 'solvent','right','solvent','#22d3ee'));
   } else {
-    let bx = z.x||z.fx, by = z.y||z.fy, bw = z.w||z.fw, bh = z.h||z.fh;
-    if(z.type==='flask') { by += z.nkH; bh -= z.nkH; }
-    for (let i=0; i<nW; i++) addP(rnd(bx+10,bx+bw-10), rnd(by+20,by+bh-10), 'solvent', '', '#22d3ee');
-    for (let i=0; i<nS; i++) addP(rnd(bx+10,bx+bw-10), rnd(by+20,by+bh-10), 'solute', '', isIon?(i%2===0?'#ef4444':'#10b981'):'#f59e0b');
+    let lx, ly, lw, lh;
+    if (z.type === 'beaker')      { lx=z.x+6; ly=z.y+z.h*.28; lw=z.w-12; lh=z.h*.70; }
+    else if (z.type === 'flask')  { lx=z.nkX+5; ly=z.fy+z.nkH; lw=z.nkW-10; lh=z.fh-z.nkH-4; }
+    else                          { lx=z.lx; ly=z.ly; lw=z.lw; lh=z.lh; }
+    for (let k = 0; k < nW; k++) particles.push(mkP(rnd(lx+2,lx+lw-2), rnd(ly+2,ly+lh-2), 'solvent','','solvent','#22d3ee'));
+    for (let k = 0; k < nS; k++) {
+      const tK = isIon ? (k%2===0?'ion_pos':'ion_neg') : 'solute';
+      const col = isIon ? (k%2===0?'#ef4444':'#10b981') : '#f59e0b';
+      particles.push(mkP(rnd(lx+2,lx+lw-2), rnd(ly+2,ly+lh-2), 'solute','',tK,col,4.5));
+    }
   }
+  const nSol = particles.filter(p=>p.type==='solute').length;
+  const nWat = particles.filter(p=>p.type==='solvent').length;
+  document.getElementById('ptip-chip').textContent = `${nSol} partículas de ${S.cmp.name} · ${nWat} moléculas de H₂O · pasa el cursor para ver definiciones`;
 }
 
 function loop() {
   RAF = requestAnimationFrame(loop);
+  if (!S.running) return;
   ptick++; S.tick++;
-  const W = cvs.width, H = cvs.height, z = getZone(W, H);
-  ctx.clearRect(0,0,W,H);
-  
-  // Background
-  const bg = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,W*.8);
+  const W = cvs.width, H = cvs.height;
+  ctx.clearRect(0, 0, W, H);
+  const bg = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.7);
   bg.addColorStop(0,'#080d14'); bg.addColorStop(1,'#040609');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-  
-  drawVessel(z);
-  
-  // Dynamics
-  const ms = 0.5 + S.T * 0.02; 
-  particles.forEach(p => {
-    p.x += p.vx * ms; p.y += p.vy * ms;
-    // Bounce logic simple
-    if (z.type === 'utube') {
-      if (p.side==='left' && p.x > z.mem-p.r) { p.x=z.mem-p.r; p.vx*=-1; }
-      if (p.side==='right' && p.x < z.mem+p.r) { p.x=z.mem+p.r; p.vx*=-1; }
-      if (p.y > z.bot-p.r) { p.y=z.bot-p.r; p.vy*=-1; }
-      if (p.y < z.top+p.r) { p.y=z.top+p.r; p.vy*=-1; }
-      if (p.side==='left' && p.x < z.lx+p.r) { p.x=z.lx+p.r; p.vx*=-1; }
-      if (p.side==='right' && p.x > z.rx+z.cw-p.r) { p.x=z.rx+z.cw-p.r; p.vx*=-1; }
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+  const z = getZone(W, H);
+  drawV(z, W, H);
+  particles.forEach(p => { updateP(p, z); drawP(p); });
+  drawAnno(z, W, H);
+  const sc = Math.floor(S.tick/60)%60, mn = Math.floor(S.tick/3600);
+  document.getElementById('time-chip').textContent = `T+${String(mn).padStart(2,'0')}:${String(sc).padStart(2,'0')}`;
+}
+
+function updateP(p, z) {
+  const ms = 1.4 + S.T * .011;
+  p.vx += (Math.random()-.5)*.09; p.vy += (Math.random()-.5)*.09;
+  p.vx = Math.max(-ms, Math.min(ms, p.vx));
+  p.vy = Math.max(-ms, Math.min(ms, p.vy));
+  if (S.exp === 'crioscopia') { p.vy += .012; const { dtf } = calcAll(); if (p.y > z.y+z.h*(1-.3-dtf*.03)) { p.vx *= .96; p.vy *= .96; } }
+  else if (S.exp === 'ebullioscopia') { if (p.type==='solvent' && p.y > z.fy+z.fh-50) p.vy -= .055*(1+S.T/120); p.vy += .017; }
+  else if (S.exp === 'vapor') { p.vy += .009; }
+  else if (S.exp === 'osmotica' && p.type==='solvent' && p.side==='left') { p.vx += .005; }
+  p.x += p.vx; p.y += p.vy;
+  clamp(p, z);
+}
+
+function clamp(p, z) {
+  const r = p.r;
+  if (z.type === 'utube') {
+    const s = p.side || 'left';
+    if (s === 'left') {
+      if (p.x < z.lx+r) { p.x=z.lx+r; p.vx=Math.abs(p.vx)*.8; }
+      if (p.x > z.mem-r-3) { p.x=z.mem-r-3; p.vx=-Math.abs(p.vx)*.8; }
     } else {
-      let bx=z.x||z.fx, by=z.y||z.fy, bw=z.w||z.fw, bh=z.h||z.fh;
-      if (z.type==='flask'){ by+=z.nkH; bh-=z.nkH; }
-      if (p.x < bx+p.r) { p.x=bx+p.r; p.vx*=-1; }
-      if (p.x > bx+bw-p.r) { p.x=bx+bw-p.r; p.vx*=-1; }
-      if (p.y > by+bh-p.r) { p.y=by+bh-p.r; p.vy*=-1; }
-      if (p.y < by+p.r) { p.y=by+p.r; p.vy*=-1; }
+      if (p.x < z.mem+r+3) { p.x=z.mem+r+3; p.vx=Math.abs(p.vx)*.8; }
+      if (p.x > z.rx+z.cw-r) { p.x=z.rx+z.cw-r; p.vx=-Math.abs(p.vx)*.8; }
     }
-    
-    // Draw particle
-    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = p.color; ctx.shadowBlur = 4; ctx.shadowColor = p.color;
-    ctx.fill(); ctx.shadowBlur = 0;
-  });
-}
-
-function drawVessel(z) {
-  ctx.strokeStyle='rgba(34,211,238,.3)'; ctx.lineWidth=2;
-  if(z.type==='utube'){
-    ctx.strokeRect(z.lx, z.top, z.cw, z.bot-z.top);
-    ctx.strokeRect(z.rx, z.top, z.cw, z.bot-z.top);
-    ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(z.mem,z.top); ctx.lineTo(z.mem,z.bot); ctx.stroke(); ctx.setLineDash([]);
-  } else if (z.type==='beaker'){
-    ctx.strokeRect(z.x, z.y, z.w, z.h);
-    const {dtf} = calcAll();
-    const iceH = Math.min(z.h*.4, dtf*20);
-    ctx.fillStyle='rgba(186,230,253,.2)'; ctx.fillRect(z.x, z.y+z.h-iceH, z.w, iceH);
-  } else if (z.type==='flask'){
-    ctx.strokeRect(z.fx, z.fy+z.nkH, z.fw, z.fh-z.nkH);
-    ctx.strokeRect(z.nkX, z.fy, z.nkW, z.nkH);
+    if (p.y < z.top+r) { p.y=z.top+r; p.vy=Math.abs(p.vy)*.8; }
+    if (p.y > z.bot-r) { p.y=z.bot-r; p.vy=-Math.abs(p.vy)*.8; }
+  } else if (z.type === 'beaker') {
+    const { dtf } = calcAll();
+    const iceH = Math.min(z.h*.32, dtf*18);
+    const x1=z.x+6+r, x2=z.x+z.w-6-r, y1=z.y+z.h*.28+r, y2=z.y+z.h-iceH-r;
+    if (p.x<x1){p.x=x1;p.vx=Math.abs(p.vx)*.8;} if (p.x>x2){p.x=x2;p.vx=-Math.abs(p.vx)*.8;}
+    if (p.y<y1){p.y=y1;p.vy=Math.abs(p.vy)*.8;} if (p.y>y2){p.y=y2;p.vy=-Math.abs(p.vy)*.8;}
+  } else if (z.type === 'flask') {
+    const nX1=z.nkX+5+r, nX2=z.nkX+z.nkW-5-r;
+    const bX1=z.fx+8+r, bX2=z.fx+z.fw-8-r;
+    const nY1=z.fy+5+r, nY2=z.fy+z.nkH+r, bY2=z.fy+z.fh-4-r;
+    if (p.y >= nY1 && p.y <= nY2) {
+      if (p.x<nX1){p.x=nX1;p.vx=Math.abs(p.vx)*.8;} if (p.x>nX2){p.x=nX2;p.vx=-Math.abs(p.vx)*.8;}
+      if (p.y<nY1){p.y=nY1;p.vy=Math.abs(p.vy)*.8;}
+    } else {
+      const pct = Math.min(1, (p.y-nY2)/30);
+      const xm1 = nX1*(1-pct)+bX1*pct, xm2 = nX2*(1-pct)+bX2*pct;
+      if (p.x<xm1){p.x=xm1;p.vx=Math.abs(p.vx)*.8;} if (p.x>xm2){p.x=xm2;p.vx=-Math.abs(p.vx)*.8;}
+      if (p.y>bY2){p.y=bY2;p.vy=-Math.abs(p.vy)*.8;}
+    }
+    if (p.y<nY1){p.y=nY1;p.vy=Math.abs(p.vy)*.8;}
   } else {
-    ctx.strokeRect(z.x, z.y, z.w, z.h);
-    ctx.fillStyle='rgba(59,130,246,.1)'; ctx.fillRect(z.x, z.surfY, z.w, z.y+z.h-z.surfY);
+    if (p.x<z.lx+r){p.x=z.lx+r;p.vx=Math.abs(p.vx)*.8;} if (p.x>z.lx+z.lw-r){p.x=z.lx+z.lw-r;p.vx=-Math.abs(p.vx)*.8;}
+    if (p.y<z.ly+r){p.y=z.ly+r;p.vy=Math.abs(p.vy)*.8;} if (p.y>z.ly+z.lh-r){p.y=z.ly+z.lh-r;p.vy=-Math.abs(p.vy)*.8;}
   }
 }
 
-// ── Graph ──
+function drawP(p) {
+  const hov = (hovP === p);
+  ctx.save();
+  ctx.globalAlpha = hov ? 1 : p.alpha;
+  ctx.shadowBlur = hov ? 16 : 8; ctx.shadowColor = p.color;
+  ctx.beginPath(); ctx.arc(p.x, p.y, hov ? p.r+2 : p.r, 0, Math.PI*2);
+  ctx.fillStyle = p.color; ctx.fill();
+  ctx.beginPath(); ctx.arc(p.x-p.r*.28, p.y-p.r*.28, p.r*.28, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fill();
+  ctx.restore();
+}
+
+function drawV(z, W, H) {
+  ctx.save(); ctx.lineWidth = 2;
+  if (z.type === 'utube') drawUTube(z);
+  else if (z.type === 'beaker') drawBeaker(z);
+  else if (z.type === 'flask') drawFlask(z);
+  else drawClosed(z);
+  ctx.restore();
+}
+
+function drawUTube(z) {
+  const { lx, rx, top, bot, cw, mem } = z;
+  ctx.shadowBlur=8; ctx.shadowColor='rgba(34,211,238,.2)';
+  ctx.fillStyle='rgba(34,211,238,.06)'; ctx.fillRect(lx+2,top,cw-4,bot-top);
+  ctx.fillStyle='rgba(34,100,200,.11)'; ctx.fillRect(rx+2,top,cw-4,bot-top);
+  ctx.strokeStyle='rgba(34,211,238,.32)'; ctx.lineWidth=2;
+  [[lx,top,lx,bot],[lx+cw,top,lx+cw,bot],[rx,top,rx,bot],[rx+cw,top,rx+cw,bot],[lx,bot,rx+cw,bot]].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});
+  ctx.setLineDash([5,4]); ctx.strokeStyle='rgba(34,211,238,.7)'; ctx.lineWidth=2.5; ctx.shadowColor='rgba(34,211,238,.5)'; ctx.shadowBlur=10;
+  ctx.beginPath(); ctx.moveTo(mem,top); ctx.lineTo(mem,bot); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font='10px Inter'; ctx.shadowBlur=0; ctx.fillStyle='rgba(34,211,238,.42)';
+  ctx.fillText('AGUA PURA',lx+4,top-10); ctx.fillText('SOLUCIÓN',rx+4,top-10); ctx.fillText('MEMBRANA',mem-40,bot+18);
+}
+
+function drawBeaker(z) {
+  const { x, y, w, h } = z;
+  const { dtf } = calcAll();
+  const iceH = Math.min(h*.32, dtf*18);
+  ctx.shadowBlur=8; ctx.shadowColor='rgba(34,211,238,.12)';
+  ctx.fillStyle='rgba(59,130,246,.08)'; ctx.fillRect(x+2,y+h*.28,w-4,h*.72-iceH);
+  if (iceH > 2) {
+    const ig=ctx.createLinearGradient(x,y+h-iceH,x,y+h); ig.addColorStop(0,'rgba(186,230,253,.18)'); ig.addColorStop(1,'rgba(224,242,254,.32)');
+    ctx.fillStyle=ig; ctx.fillRect(x+2,y+h-iceH,w-4,iceH);
+    ctx.shadowBlur=0; ctx.strokeStyle='rgba(186,230,253,.45)'; ctx.lineWidth=1;
+    for (let xi=x+14; xi<x+w-12; xi+=22) for (let yi=y+h-iceH+10; yi<y+h-6; yi+=18) for (let a=0; a<6; a++) { const ag=a*Math.PI/3; ctx.beginPath(); ctx.moveTo(xi,yi); ctx.lineTo(xi+Math.cos(ag)*7,yi+Math.sin(ag)*7); ctx.stroke(); }
+    ctx.shadowBlur=8;
+  }
+  ctx.strokeStyle='rgba(34,211,238,.3)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(x+14,y); ctx.lineTo(x,y+h); ctx.lineTo(x+w,y+h); ctx.lineTo(x+w-14,y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x+14,y); ctx.lineTo(x+w-14,y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x+w-14,y); ctx.lineTo(x+w+4,y-8); ctx.stroke();
+  drawTherm(x+w+18, y+14, h*.72, (0-dtf));
+  ctx.font='10px Inter'; ctx.shadowBlur=0; ctx.fillStyle='rgba(186,230,253,.72)';
+  ctx.fillText(`ΔTf = ${dtf.toFixed(2)}°C`,x+4,y-10); ctx.fillText(`Congela a ${(0-dtf).toFixed(2)}°C`,x+w*.38,y-10);
+  if (iceH>2) { ctx.fillStyle='rgba(186,230,253,.4)'; ctx.fillText('HIELO',x+8,y+h-iceH/2+4); }
+}
+
+function drawFlask(z) {
+  const { fx, fy, fw, fh, nkX, nkW, nkH } = z;
+  ctx.shadowBlur=8; ctx.shadowColor='rgba(245,158,11,.12)';
+  ctx.strokeStyle='rgba(245,158,11,.38)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(nkX,fy); ctx.lineTo(nkX,fy+nkH); ctx.bezierCurveTo(nkX,fy+nkH+28,fx,fy+nkH+45,fx,fy+fh); ctx.lineTo(fx+fw,fy+fh); ctx.bezierCurveTo(fx+fw,fy+nkH+45,nkX+nkW,fy+nkH+28,nkX+nkW,fy+nkH); ctx.lineTo(nkX+nkW,fy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(nkX,fy); ctx.lineTo(nkX+nkW,fy); ctx.stroke();
+  ctx.fillStyle='rgba(59,130,246,.09)'; ctx.fillRect(nkX+3,fy+nkH,nkW-6,40); ctx.fillRect(fx+5,fy+nkH+40,fw-10,fh-nkH-44);
+  for (let bi=0; bi<8; bi++) { const bx=fx+14+(bi*28%(fw-28)); const by2=fy+nkH+50+((ptick*.5+bi*25)%(fh-nkH-58)); ctx.beginPath(); ctx.arc(bx,by2,2+bi%3*1.5,0,Math.PI*2); ctx.strokeStyle='rgba(34,211,238,.38)'; ctx.lineWidth=1; ctx.shadowBlur=0; ctx.stroke(); }
+  const hg=ctx.createRadialGradient(fx+fw/2,fy+fh,0,fx+fw/2,fy+fh,65); hg.addColorStop(0,'rgba(251,146,60,.2)'); hg.addColorStop(1,'transparent');
+  ctx.fillStyle=hg; ctx.fillRect(fx-8,fy+fh-6,fw+16,36);
+  for (let si=0; si<4; si++) { const sx=nkX+nkW/2+(si-1.5)*7; const sy=fy-6-((ptick*.8+si*22)%36); const sa=Math.max(0,.5-((ptick*.8+si*22)%36)/36*.5); ctx.beginPath(); ctx.arc(sx,sy,3.5,0,Math.PI*2); ctx.fillStyle=`rgba(200,240,255,${sa*.28})`; ctx.fill(); }
+  drawTherm(fx+fw+18, fy+nkH+10, fh*.65, 100+calcAll().dtb);
+  ctx.font='10px Inter'; ctx.shadowBlur=0; ctx.fillStyle='rgba(245,158,11,.8)';
+  ctx.fillText(`ΔTb = ${calcAll().dtb.toFixed(2)}°C`, fx+2, fy-12);
+  ctx.fillText(`Hierve a ${(100+calcAll().dtb).toFixed(2)}°C`, fx+fw*.3, fy-12);
+}
+
+function drawClosed(z) {
+  const { x, y, w, h, surfY } = z;
+  ctx.shadowBlur=8; ctx.shadowColor='rgba(167,139,250,.12)';
+  ctx.fillStyle='rgba(59,130,246,.09)'; ctx.fillRect(x+2,surfY,w-4,y+h-surfY-2);
+  ctx.fillStyle='rgba(100,80,180,.03)'; ctx.fillRect(x+2,y+2,w-4,surfY-y-4);
+  ctx.strokeStyle='rgba(34,211,238,.28)'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(x+5,surfY); ctx.lineTo(x+w-5,surfY); ctx.stroke();
+  const { dpp } = calcAll(); const nV = Math.max(2, Math.round((1-dpp/100)*18));
+  for (let vi=0; vi<nV; vi++) { const vx=x+10+((vi*41+Math.floor(ptick*.35)*7)%(w-22)); const vy2=y+8+((vi*31+Math.floor(ptick*.35)*5)%(surfY-y-18)); ctx.beginPath(); ctx.arc(vx,vy2,3,0,Math.PI*2); ctx.fillStyle='rgba(167,139,250,.7)'; ctx.shadowBlur=5; ctx.shadowColor='rgba(167,139,250,.5)'; ctx.fill(); }
+  ctx.shadowBlur=10; ctx.strokeStyle='rgba(167,139,250,.38)'; ctx.lineWidth=2; ctx.strokeRect(x,y,w,h);
+  drawGauge(x+w+14, y+12, 36, 1-dpp/100);
+  ctx.font='10px Inter'; ctx.shadowBlur=0; ctx.fillStyle='rgba(167,139,250,.8)';
+  ctx.fillText(`P.vapor −${dpp.toFixed(1)}%`, x+4, y-10);
+  ctx.fillStyle='rgba(167,139,250,.4)'; ctx.fillText('VAPOR',x+10,surfY-8); ctx.fillText('SOLUCIÓN',x+10,surfY+16);
+}
+
+function drawAnno(z, W, H) {
+  if (S.exp !== 'osmotica') return;
+  const { pi } = calcAll(); const arH = Math.min(60, pi*2.8);
+  if (arH < 4) return;
+  const ax = z.rx + z.cw/2;
+  ctx.save(); ctx.strokeStyle='rgba(16,185,129,.85)'; ctx.lineWidth=2.5; ctx.shadowBlur=10; ctx.shadowColor='rgba(16,185,129,.5)';
+  ctx.beginPath(); ctx.moveTo(ax,z.top-5); ctx.lineTo(ax,z.top-5-arH); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(ax-6,z.top-5-arH+9); ctx.lineTo(ax,z.top-5-arH); ctx.lineTo(ax+6,z.top-5-arH+9); ctx.stroke();
+  ctx.font='11px "JetBrains Mono"'; ctx.fillStyle='rgba(16,185,129,.9)';
+  ctx.fillText(`Π=${pi.toFixed(1)}atm`, ax+9, z.top-5-arH/2); ctx.restore();
+}
+
+function drawTherm(x, y, h, temp) {
+  ctx.save(); ctx.lineWidth=2; ctx.shadowBlur=0;
+  ctx.strokeStyle='rgba(34,211,238,.28)'; ctx.strokeRect(x,y,10,h);
+  const f=Math.min(1,Math.max(0,(temp+30)/160)), mH=f*(h-4);
+  ctx.fillStyle='rgba(239,68,68,.8)'; ctx.fillRect(x+2,y+h-mH-2,6,mH);
+  ctx.beginPath(); ctx.arc(x+5,y+h+5,7,0,Math.PI*2); ctx.fillStyle='rgba(239,68,68,.8)'; ctx.fill();
+  for (let t=0;t<=4;t++){const ty=y+(h/4)*t; ctx.beginPath(); ctx.moveTo(x+10,ty); ctx.lineTo(x+15,ty); ctx.strokeStyle='rgba(34,211,238,.2)'; ctx.stroke();}
+  ctx.font='9px "JetBrains Mono"'; ctx.fillStyle='rgba(239,68,68,.8)'; ctx.fillText(temp.toFixed(1)+'°',x+15,y+h-mH-2);
+  ctx.restore();
+}
+function drawGauge(x, y, r, frac) {
+  ctx.save(); ctx.lineWidth=2; ctx.strokeStyle='rgba(167,139,250,.45)';
+  ctx.beginPath(); ctx.arc(x+r,y+r,r,0,Math.PI*2); ctx.stroke();
+  const ang=-Math.PI*.7+frac*Math.PI*1.4;
+  ctx.strokeStyle='rgba(167,139,250,.9)'; ctx.beginPath(); ctx.moveTo(x+r,y+r); ctx.lineTo(x+r+Math.cos(ang)*(r-5),y+r+Math.sin(ang)*(r-5)); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x+r,y+r,3,0,Math.PI*2); ctx.fillStyle='rgba(167,139,250,.7)'; ctx.fill();
+  ctx.restore();
+}
+function toggleSim() { S.running=!S.running; document.getElementById('sim-txt').textContent=S.running?'⏸ Pausar':'▶ Reanudar'; }
+function resetSim() { S.tick=0; ptick=0; S.running=true; document.getElementById('sim-txt').textContent='⏸ Pausar'; spawnP(); }
+
+// ── Graph ───────────────────────────────────────────────
 function drawGraph() {
-  const c = document.getElementById('g-cv');
-  if(!c || !c.offsetWidth) return;
-  c.width=c.offsetWidth; c.height=100;
-  const g=c.getContext('2d'), W=c.width, H=c.height;
-  
-  const vals = [];
-  for(let m=0; m<=5; m+=0.2) {
-    if(S.exp==='osmotica') vals.push({x:m, y:S.i*m*RG*(S.T+273.15)});
-    else if(S.exp==='crioscopia') vals.push({x:m, y:1.86*m*S.i});
-    else if(S.exp==='ebullioscopia') vals.push({x:m, y:0.512*m*S.i});
-    else vals.push({x:m, y:(m*.018/(1+m*.018))*S.i*100});
-  }
-  const maxY = Math.max(...vals.map(v=>v.y))||1;
-  
-  g.clearRect(0,0,W,H);
-  g.strokeStyle='rgba(34,211,238,.6)'; g.lineWidth=2;
-  g.beginPath();
-  vals.forEach((v,i) => {
-    const px = 10 + (v.x/5)*(W-20), py = H - 10 - (v.y/maxY)*(H-20);
-    i===0 ? g.moveTo(px,py) : g.lineTo(px,py);
-  });
-  g.stroke();
-  
-  // Plot current point
-  const curX = S.exp==='osmotica'?S.Mo:S.m;
-  const curY = vals.find(v=>v.x>=curX)?.y || 0;
-  const cx = 10 + (curX/5)*(W-20), cy = H - 10 - (curY/maxY)*(H-20);
-  g.beginPath(); g.arc(cx,cy,4,0,Math.PI*2); g.fillStyle='#22d3ee'; g.fill();
+  const gc = document.getElementById('g-cv');
+  if (!gc || !gc.offsetWidth) return;
+  gc.width = gc.offsetWidth; gc.height = 100;
+  const g = gc.getContext('2d'), W=gc.width, H=gc.height, p={l:22,r:8,t:6,b:16};
+  const iW=W-p.l-p.r, iH=H-p.t-p.b;
+  g.strokeStyle='rgba(255,255,255,.04)'; g.lineWidth=1;
+  for(let k=0;k<=4;k++){const x=p.l+(iW/4)*k,y2=p.t+(iH/4)*k; g.beginPath();g.moveTo(x,p.t);g.lineTo(x,p.t+iH);g.stroke(); g.beginPath();g.moveTo(p.l,y2);g.lineTo(p.l+iW,y2);g.stroke();}
+  g.strokeStyle='rgba(255,255,255,.15)'; g.beginPath();g.moveTo(p.l,p.t);g.lineTo(p.l,p.t+iH);g.lineTo(p.l+iW,p.t+iH);g.stroke();
+  const cols={osmotica:'#22d3ee',crioscopia:'#bae6fd',ebullioscopia:'#f59e0b',vapor:'#a78bfa'};
+  const col=cols[S.exp], pts=[];
+  for(let c=.1;c<=5;c+=.15){let y2;
+    if(S.exp==='osmotica')      y2=S.i*c*RG*(S.T+273.15);
+    else if(S.exp==='crioscopia')  y2=1.86*c*S.i;
+    else if(S.exp==='ebullioscopia')y2=.512*c*S.i;
+    else y2=(c*.018/(1+c*.018))*S.i*100;
+    pts.push({c,y:y2});}
+  const maxY=Math.max(...pts.map(q=>q.y))*1.1||1;
+  g.strokeStyle=col; g.lineWidth=2; g.shadowBlur=8; g.shadowColor=col;
+  g.beginPath(); pts.forEach((pt,k)=>{const px=p.l+(pt.c/5)*iW,py=p.t+iH-(pt.y/maxY)*iH; k===0?g.moveTo(px,py):g.lineTo(px,py);});
+  g.stroke(); g.shadowBlur=0;
+  const curC=S.exp==='osmotica'?S.Mo:S.m; let curY;
+  if(S.exp==='osmotica') curY=S.i*curC*RG*(S.T+273.15);
+  else if(S.exp==='crioscopia') curY=1.86*curC*S.i;
+  else if(S.exp==='ebullioscopia') curY=.512*curC*S.i;
+  else curY=(curC*.018/(1+curC*.018))*S.i*100;
+  const dx=p.l+(Math.min(curC,5)/5)*iW, dy=p.t+iH-(Math.min(curY,maxY*.99)/maxY)*iH;
+  g.beginPath(); g.arc(dx,dy,5,0,Math.PI*2); g.fillStyle=col; g.shadowBlur=10; g.shadowColor=col; g.fill(); g.shadowBlur=0;
+  g.font='9px Inter'; g.fillStyle='rgba(255,255,255,.25)';
+  g.fillText('0',p.l-8,p.t+iH+4); g.fillText('5',p.l+iW-3,p.t+iH+4); g.fillText('cantidad →',p.l+iW/2-22,p.t+iH+13);
 }
 
-// ── REAL LIFE TABS & CANVAS ────────────────────────────
-let rlTick=0, rlRAF;
+function genReport() {
+  const { dtf, dtb, pi, dpp } = calcAll(); const { m, Mo, T, i, cmp } = S;
+  document.getElementById('report-out').innerHTML = `<div class="report-box">
+  <h4>📋 Reporte: ${S.exp} con ${cmp.name}</h4>
+  <div style="font-size:.6rem;color:var(--txt3);margin-bottom:.6rem">${new Date().toLocaleString('es-ES')}</div>
+  <table><tr><th>Medida</th><th>Valor</th><th>Unidad</th></tr>
+  <tr><td>Molalidad</td><td>${m.toFixed(3)}</td><td>mol/kg</td></tr>
+  <tr><td>Molaridad</td><td>${Mo.toFixed(3)}</td><td>mol/L</td></tr>
+  <tr><td>Temperatura</td><td>${T}</td><td>°C</td></tr>
+  <tr><td>i (trozos)</td><td>${i}</td><td>—</td></tr>
+  <tr><td>Baja congelación ΔTf</td><td>${dtf.toFixed(4)}</td><td>°C</td></tr>
+  <tr><td>Congela a</td><td>${(0-dtf).toFixed(4)}</td><td>°C</td></tr>
+  <tr><td>Sube ebullición ΔTb</td><td>${dtb.toFixed(4)}</td><td>°C</td></tr>
+  <tr><td>Hierve a</td><td>${(100+dtb).toFixed(4)}</td><td>°C</td></tr>
+  <tr><td>Presión osmótica Π</td><td>${pi.toFixed(4)}</td><td>atm</td></tr>
+  <tr><td>Baja P.vapor</td><td>${dpp.toFixed(3)}</td><td>%</td></tr>
+  </table></div>`;
+}
+
+// ── REAL LIFE CANVASES ───────────────────────────────────
+let antiCanvas, roadCanvas, leachCanvas;
+let antiTick=0, roadTick=0, leachTick=0;
+let antiRAF, roadRAF, leachRAF;
+
+function initRealLife() {
+  setTimeout(()=>{
+    antiUpdate(40); roadUpdate('g',20); leachUpdate(20);
+    startAntiAnim(); startRoadAnim(); startLeachAnim();
+  }, 80);
+}
+
+// ANTICONGELANTE CANVAS
+function antiUpdate(v) {
+  RL.anti.pct = +v;
+  document.getElementById('anti-pct-v').textContent = Math.round(v) + '%';
+  // Etilenglicol: rho=1.113, M=62.07, i=1
+  const pct = +v;
+  const vEG=pct, vW=100-pct;
+  const mEG=vEG*1.113, mW=vW; // g
+  const nEG=mEG/62.07;
+  const molal=nEG/(mW/1000);
+  const dtf=1.86*molal;
+  const tf=-dtf;
+  document.getElementById('anti-result').textContent = tf.toFixed(1) + ' °C';
+  const note = tf < -35 ? '✅ Protección excelente para climas árticos' : tf < -20 ? '✅ Protección buena para inviernos duros' : tf < -10 ? '⚠️ Protección básica — válido en climas suaves' : '❌ Insuficiente — riesgo de daños al motor en invierno';
+  document.getElementById('anti-note').textContent = note + `  |  ΔTf = ${dtf.toFixed(2)}°C  (molalidad: ${molal.toFixed(2)} mol/kg)`;
+}
+
+function startAntiAnim() {
+  if (antiRAF) { cancelAnimationFrame(antiRAF); antiRAF=null; }
+  const c = document.getElementById('cv-anti');
+  if (!c) return;
+  const g = c.getContext('2d');
+  c.width = c.parentElement.clientWidth || 300;
+  function frame() {
+    antiRAF = requestAnimationFrame(frame);
+    antiTick++;
+    drawAntiCanvas(g, c.width, c.height);
+  }
+  frame();
+}
+
+function drawAntiCanvas(g, W, H) {
+  g.clearRect(0,0,W,H);
+  const bg=g.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#08101a'); bg.addColorStop(1,'#040609');
+  g.fillStyle=bg; g.fillRect(0,0,W,H);
+  const pct = RL.anti.pct;
+  const mEG=pct*1.113, mW=100-pct, nEG=mEG/62.07, molal=nEG/(mW/1000||.001), dtf=1.86*molal, tf=-dtf;
+
+  // Draw car radiator schematic
+  const cx=W/2, cy=H/2;
+  // Radiator block
+  g.strokeStyle='rgba(34,211,238,.35)'; g.lineWidth=1.5;
+  const rx=cx-70,ry=cy-50,rw=140,rh=100;
+  g.strokeRect(rx,ry,rw,rh);
+  // Cells
+  for(let xi=rx+14;xi<rx+rw-4;xi+=14){g.beginPath();g.moveTo(xi,ry);g.lineTo(xi,ry+rh);g.strokeStyle='rgba(34,211,238,.12)';g.stroke();}
+  g.strokeStyle='rgba(34,211,238,.35)';
+  for(let yi=ry+20;yi<ry+rh-4;yi+=20){g.beginPath();g.moveTo(rx,yi);g.lineTo(rx+rw,yi);g.strokeStyle='rgba(34,211,238,.1)';g.stroke();}
+
+  // Fluid color based on mix (water=blue, EG=green, mix=teal)
+  const r1=Math.round(59*(1-pct/100)+16*(pct/100));
+  const g1=Math.round(130*(1-pct/100)+185*(pct/100));
+  const b1=Math.round(246*(1-pct/100)+129*(pct/100));
+  const fluidCol = `rgba(${r1},${g1},${b1},0.18)`;
+  g.fillStyle=fluidCol; g.fillRect(rx+2,ry+2,rw-4,rh-4);
+
+  // Flowing particles in radiator
+  for(let pi=0;pi<16;pi++){
+    const px=rx+8+((pi*22+antiTick*1.2)%(rw-16));
+    const py=ry+10+((pi*13)%(rh-20));
+    const alpha=0.5+0.3*Math.sin(antiTick*.05+pi);
+    g.beginPath();g.arc(px,py,2.5,0,Math.PI*2);
+    g.fillStyle=`rgba(${r1},${g1},${b1},${alpha})`;
+    g.shadowBlur=5;g.shadowColor=`rgba(${r1},${g1},${b1},.5)`;
+    g.fill();g.shadowBlur=0;
+  }
+
+  // Temperature scale on right
+  const scaleX=rx+rw+18, scaleY=ry, scaleH=rh;
+  g.strokeStyle='rgba(255,255,255,.12)'; g.lineWidth=1;
+  g.beginPath();g.moveTo(scaleX,scaleY);g.lineTo(scaleX,scaleY+scaleH);g.stroke();
+  const temps=[20,0,-10,-20,-30,-40];
+  temps.forEach((t,k)=>{
+    const ty=scaleY+(k/5)*scaleH;
+    g.beginPath();g.moveTo(scaleX-4,ty);g.lineTo(scaleX+4,ty);g.strokeStyle='rgba(255,255,255,.2)';g.stroke();
+    g.font='8px Inter'; g.fillStyle='rgba(255,255,255,.3)'; g.textAlign='left';
+    g.fillText(t+'°',scaleX+6,ty+3);
+  });
+  // Current freeze point marker
+  const tfNorm=Math.max(0,Math.min(1,(tf-20)/(-40-20)));
+  const markerY=scaleY+tfNorm*scaleH;
+  g.beginPath();g.moveTo(scaleX-10,markerY);g.lineTo(scaleX+10,markerY);
+  g.strokeStyle='rgba(16,185,129,.9)';g.lineWidth=2;g.stroke();
+  g.font='9px "JetBrains Mono"'; g.fillStyle='rgba(16,185,129,.9)'; g.textAlign='left';
+  g.fillText(tf.toFixed(1)+'°C',scaleX+12,markerY+3);
+
+  // Legend
+  g.textAlign='left'; g.font='9px Inter';
+  g.fillStyle='rgba(34,211,238,.6)'; g.fillText(`Mezcla: ${Math.round(pct)}% anticongelante`,rx,ry-14);
+  g.fillStyle=`rgba(${r1},${g1},${b1},.8)`; g.fillText(`Color del líquido`,rx+rw-90,ry-14);
+}
+
+// ROAD SALT CANVAS
+function roadUpdate(key, v) {
+  if (key==='g') { RL.road.g=+v; document.getElementById('road-g-v').textContent=Math.round(+v)+'g'; }
+  const { g:grams, saltI, saltM, saltName } = RL.road;
+  const molal=(grams/saltM)/(0.1);
+  const dtf=1.86*molal*saltI, tf=-dtf;
+  document.getElementById('road-result').textContent = tf.toFixed(2)+' °C';
+  const note = tf < -15 ? `✅ Eficaz — funde hielo hasta ${tf.toFixed(0)}°C` : tf < -8 ? `⚠️ Funciona para heladas moderadas` : `❌ Solo eficaz con heladas suaves`;
+  document.getElementById('road-note').textContent = note + `  |  ${saltName} (i=${saltI}) → ΔTf = ${dtf.toFixed(2)}°C`;
+}
+function roadSalt(name, i, M) {
+  RL.road.saltName=name; RL.road.saltI=i; RL.road.saltM=M;
+  document.getElementById('road-salt-v').textContent=name;
+  document.getElementById('rs-nacl').classList.toggle('on',name==='NaCl');
+  document.getElementById('rs-cacl2').classList.toggle('on',name==='CaCl₂');
+  roadUpdate('g', RL.road.g);
+}
+
+function startRoadAnim() {
+  if (roadRAF) { cancelAnimationFrame(roadRAF); roadRAF=null; }
+  const c = document.getElementById('cv-road');
+  if (!c) return;
+  const g = c.getContext('2d');
+  c.width = c.parentElement.clientWidth || 300;
+  function frame() { roadRAF=requestAnimationFrame(frame); roadTick++; drawRoadCanvas(g,c.width,c.height); }
+  frame();
+}
+
+function drawRoadCanvas(g, W, H) {
+  g.clearRect(0,0,W,H);
+  const bg=g.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#0a0f18'); bg.addColorStop(1,'#040609');
+  g.fillStyle=bg; g.fillRect(0,0,W,H);
+  const { g:grams, saltI, saltM, saltName } = RL.road;
+  const molal=(grams/saltM)/(0.1);
+  const dtf=1.86*molal*saltI, tf=-dtf;
+
+  // Road surface
+  const roadY=H*.45, roadH=H*.35;
+  g.fillStyle='rgba(30,30,40,.8)'; g.fillRect(0,roadY,W,roadH);
+  // Road lines
+  for(let xi=((roadTick*1.5)%60)-60;xi<W+60;xi+=60){g.beginPath();g.moveTo(xi,roadY+roadH/2);g.lineTo(xi+40,roadY+roadH/2);g.strokeStyle='rgba(255,200,0,.25)';g.lineWidth=3;g.stroke();}
+  // Ice layer on road — thickness depends on how cold (how little salt)
+  const iceThick=Math.max(0, 20 - Math.abs(tf)*0.5);
+  if(iceThick>0){
+    g.fillStyle=`rgba(186,230,253,${0.25-Math.abs(tf)*.005})`;
+    g.fillRect(0,roadY,W,iceThick*0.8);
+    // Ice crystals on top
+    g.strokeStyle='rgba(186,230,253,.35)'; g.lineWidth=1;
+    for(let xi=10;xi<W-10;xi+=30){
+      for(let a=0;a<6;a++){const ag=a*Math.PI/3; g.beginPath(); g.moveTo(xi,roadY); g.lineTo(xi+Math.cos(ag)*6,roadY+Math.sin(ag)*6); g.stroke();}
+    }
+  }
+
+  // Salt particles being scattered
+  for(let pi=0;pi<Math.round(grams/2);pi++){
+    const px=((pi*43+roadTick*.5)%W);
+    const py=roadY-5-Math.abs(Math.sin(roadTick*.04+pi)*15);
+    const landed=py>=roadY-5;
+    g.beginPath();g.arc(px,py,2,0,Math.PI*2);
+    g.fillStyle=RL.road.saltName==='NaCl'?'rgba(255,255,255,.7)':'rgba(255,200,100,.7)';
+    g.fill();
+    if(landed){
+      // Salt dissolving effect — small cyan circle
+      const dissolveR=((roadTick*.3+pi*7)%20);
+      if(dissolveR<12){g.beginPath();g.arc(px,roadY-1,dissolveR,0,Math.PI*2);g.strokeStyle=`rgba(34,211,238,${.4-dissolveR/30})`;g.lineWidth=1;g.stroke();}
+    }
+  }
+
+  // Temperature display
+  g.font='11px "JetBrains Mono"'; g.fillStyle='rgba(186,230,253,.85)';
+  g.textAlign='center';
+  g.fillText(`Con ${Math.round(grams)}g de ${saltName} por 100g de agua`, W/2, H*.15);
+  g.font='18px "JetBrains Mono"'; 
+  const tempCol=tf<-10?'rgba(16,185,129,.9)':tf<-5?'rgba(245,158,11,.9)':'rgba(239,68,68,.9)';
+  g.fillStyle=tempCol; g.fillText(`Congela a ${tf.toFixed(1)}°C`, W/2, H*.33);
+  g.font='10px Inter'; g.fillStyle='rgba(255,255,255,.4)';
+  g.fillText(iceThick>1 ? `Capa de hielo: ${iceThick.toFixed(0)}mm` : '✅ Sin hielo a esta temperatura', W/2, H*.9);
+}
+
+// LIXIVIADOS CANVAS
+function leachUpdate(v) {
+  RL.leach.c = +v;
+  document.getElementById('leach-c-v').textContent = Math.round(+v) + ' g/L';
+  // Approximation: contaminants as NaCl equivalent, M~100, i≈2
+  const M=100, molar=+v/M, pi=2*molar*RG*298.15;
+  const piBar=pi/0.09869; // atm to bar
+  document.getElementById('leach-result').textContent = pi.toFixed(2) + ' atm';
+  const note = pi>20 ? `⚠️ Lixiviado muy concentrado — se necesitan bombas de alta presión (>${(pi/0.09869).toFixed(0)} bar)` : pi>10 ? `⚠️ Concentración alta — planta de ósmosis inversa estándar` : `✅ Concentración manejable — tratamiento estándar eficaz`;
+  document.getElementById('leach-note').textContent = note + `  |  Presión necesaria: >${(pi*1.5/0.09869).toFixed(0)} bar (×1.5 de margen)`;
+}
+
+function startLeachAnim() {
+  if (leachRAF) { cancelAnimationFrame(leachRAF); leachRAF=null; }
+  const c = document.getElementById('cv-leach');
+  if (!c) return;
+  const g = c.getContext('2d');
+  c.width = c.parentElement.clientWidth || 300;
+  function frame() { leachRAF=requestAnimationFrame(frame); leachTick++; drawLeachCanvas(g,c.width,c.height); }
+  frame();
+}
+
+function drawLeachCanvas(g, W, H) {
+  g.clearRect(0,0,W,H);
+  const bg=g.createLinearGradient(0,0,0,H); bg.addColorStop(0,'#0b0d14'); bg.addColorStop(1,'#040609');
+  g.fillStyle=bg; g.fillRect(0,0,W,H);
+  const conc = RL.leach.c;
+  const pi=2*(conc/100)*RG*298.15;
+
+  // Left side: lixiviado (dirty water)
+  const lx=30, ly=H*.1, lw=W*.35, lh=H*.75;
+  const liqCol=`rgba(${Math.round(40+conc*2)},${Math.round(80-conc)},${Math.round(20)},0.7)`;
+  g.fillStyle=liqCol; g.fillRect(lx,ly,lw,lh);
+  // Contaminant particles
+  for(let pi2=0;pi2<Math.round(conc/3);pi2++){
+    const px=lx+8+((pi2*31)%(lw-16));
+    const py=ly+8+((pi2*23+leachTick*.3)%(lh-16));
+    const col=['rgba(180,100,20,.8)','rgba(120,80,150,.8)','rgba(200,50,50,.8)'][pi2%3];
+    g.beginPath();g.arc(px,py,2.5,0,Math.PI*2);g.fillStyle=col;g.fill();
+  }
+  g.strokeStyle='rgba(100,80,50,.5)'; g.lineWidth=1.5; g.strokeRect(lx,ly,lw,lh);
+  g.font='9px Inter'; g.fillStyle='rgba(180,120,50,.8)'; g.textAlign='center';
+  g.fillText('LIXIVIADO',lx+lw/2,ly-6);
+  g.fillText('(agua contaminada)',lx+lw/2,ly+lh+12);
+
+  // Membrane in center
+  const mx2=W/2-8, myy=ly, mw2=16, mh2=lh;
+  for(let yi=myy;yi<myy+mh2;yi+=8){
+    const open=(yi/8+leachTick*.05)%1>.4;
+    g.strokeStyle=open?'rgba(34,211,238,.5)':'rgba(34,211,238,.2)';
+    g.lineWidth=open?2:1;
+    g.beginPath();g.moveTo(mx2,yi);g.lineTo(mx2+mw2,yi+4);g.stroke();
+  }
+  g.font='8px Inter'; g.fillStyle='rgba(34,211,238,.55)'; g.textAlign='center';
+  g.fillText('MEMBRANA',mx2+mw2/2,myy-6);
+  g.fillText('semipermeable',mx2+mw2/2,myy+mh2+12);
+
+  // Right side: clean water (more or less depending on pressure vs osmotic pi)
+  const rx2=W/2+14, rw2=W*.32, rh2=lh;
+  const cleanAlpha=Math.min(.4, .05+Math.max(0,(pi-5)/30)*.35);
+  g.fillStyle=`rgba(59,130,246,${cleanAlpha})`; g.fillRect(rx2,ly,rw2,lh);
+  // Clean water molecules flowing through
+  for(let k=0;k<12;k++){
+    const t=(leachTick*.4+k*30)%100/100;
+    const px2=mx2+mw2+t*(rx2+rw2-mx2-mw2-10);
+    const py2=ly+20+(k*((lh-40)/12));
+    if(t<.95){
+      g.beginPath();g.arc(px2,py2,2.5,0,Math.PI*2);
+      g.fillStyle=`rgba(34,211,238,${.8-t*.5})`;g.shadowBlur=4;g.shadowColor='rgba(34,211,238,.4)';g.fill();g.shadowBlur=0;
+    }
+  }
+  g.strokeStyle='rgba(59,130,246,.4)'; g.lineWidth=1.5; g.strokeRect(rx2,ly,rw2,lh);
+  g.font='9px Inter'; g.fillStyle='rgba(59,130,246,.8)'; g.textAlign='center';
+  g.fillText('AGUA LIMPIA',rx2+rw2/2,ly-6);
+
+  // Pressure arrow
+  const arrowY=ly+lh/2, arrowX=lx+lw+4;
+  const arrowLen=Math.min(60, pi*4);
+  g.strokeStyle='rgba(16,185,129,.85)'; g.lineWidth=2.5;
+  g.beginPath();g.moveTo(arrowX,arrowY);g.lineTo(arrowX+arrowLen,arrowY);g.stroke();
+  g.beginPath();g.moveTo(arrowX+arrowLen-7,arrowY-5);g.lineTo(arrowX+arrowLen,arrowY);g.lineTo(arrowX+arrowLen-7,arrowY+5);g.stroke();
+  g.font='9px "JetBrains Mono"'; g.fillStyle='rgba(16,185,129,.85)'; g.textAlign='center';
+  g.fillText(`P>${(pi*1.5/0.09869).toFixed(0)}bar`,arrowX+arrowLen/2,arrowY-9);
+
+  // Π display
+  g.font='11px "JetBrains Mono"'; g.fillStyle='rgba(167,139,250,.85)'; g.textAlign='center';
+  g.fillText(`Presión osmótica: ${pi.toFixed(1)} atm`,W/2,H*.93);
+}
+
+// ── Real-life tab switch ───────────────────────────────
 function rlTab(id, btn) {
   document.querySelectorAll('.rl-tab').forEach(t=>t.classList.remove('on'));
   document.querySelectorAll('.rl-panel').forEach(p=>p.classList.remove('on'));
   btn.classList.add('on');
   document.getElementById('rl-'+id).classList.add('on');
-  if (id==='anticongelante') startAnti();
-  if (id==='carretera') startRoad();
-  if (id==='lixiviados') startLeach();
-}
-
-function initRealLife() {
-  setTimeout(()=>{ antiUpdate(40); roadUpdate('g',20); leachUpdate(20); startAnti(); }, 100);
-}
-
-// 1. Anticongelante
-function antiUpdate(v) {
-  RL.anti.pct = +v; document.getElementById('anti-pct-v').textContent = Math.round(v) + '%';
-  const mEG=v*1.113, molal=(mEG/62.07)/((100-v)/1000||0.001), tf=-(1.86*molal);
-  document.getElementById('anti-result').textContent = tf.toFixed(1) + ' °C';
-  document.getElementById('anti-note').textContent = tf < -20 ? '✅ Fluido seguro. El hielo no bloqueará el conducto.' : '❌ Peligro de cristalización que revienta el conducto.';
-}
-function startAnti() {
-  const c = document.getElementById('cv-anti');
-  if (!c) return;
-  const g = c.getContext('2d');
-  c.width = c.parentElement.clientWidth;
-  if(rlRAF) cancelAnimationFrame(rlRAF);
-  function draw() {
-    rlRAF=requestAnimationFrame(draw); rlTick++;
-    g.clearRect(0,0,c.width,c.height);
-    g.fillStyle='#080b12'; g.fillRect(0,0,c.width,c.height);
-    
-    // Draw pipe
-    const py=c.height/2-20;
-    g.strokeStyle='#374151'; g.lineWidth=6;
-    g.beginPath(); g.moveTo(20,py-20); g.lineTo(c.width-20,py-20); g.stroke();
-    g.beginPath(); g.moveTo(20,py+20); g.lineTo(c.width-20,py+20); g.stroke();
-    
-    // Logic 
-    const isFrozen = RL.anti.pct < 20; // Simplified threshold for animation
-    const speed = isFrozen ? 0 : 2;
-    
-    // Fluid
-    const col = `rgba(${50+RL.anti.pct*2}, 200, 100, 0.4)`;
-    g.fillStyle=col; g.fillRect(20,py-17,c.width-40, 34);
-    
-    if (isFrozen) {
-      g.fillStyle='rgba(186,230,253,0.8)';
-      g.fillRect(c.width/2-30, py-17, 60, 34); // Ice block
-      g.fillStyle='#fff'; g.font='12px sans-serif'; g.textAlign='center';
-      g.fillText('BLOQUEADO POR HIELO', c.width/2, py+4);
-    } else {
-      // Flowing particles
-      g.fillStyle='#fff';
-      for(let i=0; i<10; i++) {
-        let px = ((i*40 + rlTick*speed) % (c.width-40)) + 20;
-        g.beginPath(); g.arc(px, py+Math.sin(i+rlTick*0.1)*10, 3, 0, Math.PI*2); g.fill();
-      }
-    }
-  }
-  draw();
-}
-
-// 2. Road Salt
-function roadUpdate(k, v) {
-  RL.road.g=+v; document.getElementById('road-g-v').textContent=v+'g';
-  const molal=(v/RL.road.saltM)/(0.1), tf=-(1.86*molal*RL.road.saltI);
-  document.getElementById('road-result').textContent = tf.toFixed(1)+' °C';
-}
-function roadSalt(name, i, M) {
-  RL.road = { g:RL.road.g, saltName:name, saltI:i, saltM:M };
-  document.querySelectorAll('#rl-carretera .cmp').forEach(b => b.classList.remove('on'));
-  event.target.classList.add('on');
-  roadUpdate('g', RL.road.g);
-}
-function startRoad() {
-  const c = document.getElementById('cv-road');
-  const g = c.getContext('2d'); c.width = c.parentElement.clientWidth;
-  if(rlRAF) cancelAnimationFrame(rlRAF);
-  function draw() {
-    rlRAF=requestAnimationFrame(draw); rlTick++;
-    g.fillStyle='#0f172a'; g.fillRect(0,0,c.width,c.height);
-    
-    const roadY = c.height*0.6;
-    g.fillStyle='#1e293b'; g.fillRect(0,roadY,c.width, c.height-roadY);
-    
-    const tf = -(1.86 * ((RL.road.g/RL.road.saltM)/0.1) * RL.road.saltI);
-    const iceThick = Math.max(0, 25 - Math.abs(tf));
-    
-    if (iceThick > 0) {
-      g.fillStyle='rgba(186,230,253,0.5)';
-      g.fillRect(0, roadY-iceThick, c.width, iceThick);
-    }
-    
-    // Salt falling
-    g.fillStyle=RL.road.saltName==='NaCl'?'#f8fafc':'#fde047';
-    for(let i=0; i<RL.road.g/2; i++) {
-      let x = (i*30 + rlTick) % c.width;
-      let y = roadY - iceThick + Math.sin(x)*2;
-      g.fillRect(x,y, 3, 3);
-    }
-  }
-  draw();
-}
-
-// 3. Lixiviados (Redone Reverse Osmosis)
-function leachUpdate(v) {
-  RL.leach.c = +v; document.getElementById('leach-c-v').textContent = v + ' g/L';
-  const pi = 2 * (v/100) * RG * 298.15; // Approx
-  document.getElementById('leach-result').textContent = pi.toFixed(2) + ' atm';
-  document.getElementById('leach-note').textContent = `Las bombas mecánicas deben superar ${pi.toFixed(2)} atm para empujar el agua y filtrarla.`;
-}
-function startLeach() {
-  const c = document.getElementById('cv-leach');
-  const g = c.getContext('2d'); c.width = c.parentElement.clientWidth;
-  if(rlRAF) cancelAnimationFrame(rlRAF);
-  function draw() {
-    rlRAF=requestAnimationFrame(draw); rlTick++;
-    g.fillStyle='#07090f'; g.fillRect(0,0,c.width,c.height);
-    
-    const cy = c.height/2, w = c.width*0.8, x = c.width*0.1, h = 80;
-    
-    // Cylinder
-    g.strokeStyle='#475569'; g.lineWidth=4;
-    g.strokeRect(x, cy-h/2, w, h);
-    
-    // Membrane center
-    const memX = x + w/2;
-    g.setLineDash([4,4]); g.strokeStyle='#22d3ee';
-    g.beginPath(); g.moveTo(memX, cy-h/2); g.lineTo(memX, cy+h/2); g.stroke(); g.setLineDash([]);
-    
-    const conc = RL.leach.c;
-    // Left: dirty water
-    g.fillStyle=`rgba(${100+conc*2}, ${100-conc}, 50, 0.6)`;
-    g.fillRect(x, cy-h/2+2, w/2, h-4);
-    
-    // Right: clean water
-    g.fillStyle='rgba(59,130,246,0.3)';
-    g.fillRect(memX, cy-h/2+2, w/2, h-4);
-    
-    // Piston pushing from left based on pressure
-    const push = Math.sin(rlTick*0.05)*10 + 10;
-    g.fillStyle='#94a3b8';
-    g.fillRect(x-10 + push, cy-h/2+2, 10, h-4);
-    
-    // Clean water drops coming out right
-    if (push > 10) {
-      g.fillStyle='#3b82f6';
-      let dropX = x+w + (rlTick*2 % 20);
-      g.beginPath(); g.arc(dropX, cy, 3, 0, Math.PI*2); g.fill();
-    }
-    
-    g.fillStyle='#fff'; g.font='10px sans-serif'; g.textAlign='center';
-    g.fillText('Presión PISTÓN > Π', x+w/4, cy-h/2-10);
-    g.fillText('Agua Limpia', memX+w/4, cy-h/2-10);
-  }
-  draw();
+  // Restart that canvas animation
+  if (id==='anticongelante') startAntiAnim();
+  if (id==='carretera') startRoadAnim();
+  if (id==='lixiviados') startLeachAnim();
 }
 
 // ── Calculator ──────────────────────────────────────────
+function calcSoluteChange() {
+  const v=document.getElementById('c-sol').value, isC=v.startsWith('custom');
+  document.getElementById('cust-M').style.display=isC?'flex':'none';
+  document.getElementById('cust-i').style.display=isC?'flex':'none';
+}
 function doCalc() {
-  const ms = parseFloat(document.getElementById('c-ms').value);
-  const mv = parseFloat(document.getElementById('c-mv').value);
-  const t = parseFloat(document.getElementById('c-T').value);
-  const sol = document.getElementById('c-sol').value.split('|');
-  const i = parseFloat(sol[1]), M = parseFloat(sol[2]);
-  
-  const molal = (ms/M) / (mv/1000);
-  const dtf = 1.86 * molal * i;
-  const dtb = 0.512 * molal * i;
-  
-  const molar = (ms/M) / ((mv+ms)/1000); // rough approximation
-  const pi = i * molar * RG * (t+273.15);
-  
-  const out = `
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-family:var(--mono); font-size:0.85rem">
-      <div>Molalidad: <b style="color:var(--cyan)">${molal.toFixed(3)} m</b></div>
-      <div>P. Osmótica: <b style="color:var(--purple)">${pi.toFixed(2)} atm</b></div>
-      <div>Baja Congelación: <b style="color:var(--green)">-${dtf.toFixed(2)} °C</b></div>
-      <div>Sube Ebullición: <b style="color:var(--amber)">+${dtb.toFixed(2)} °C</b></div>
-    </div>
-  `;
-  document.getElementById('calc-out').innerHTML = out;
+  try {
+    const sv=document.getElementById('c-sol').value;
+    const solvArr=document.getElementById('c-solv').value.split('|');
+    const ms=parseFloat(document.getElementById('c-ms').value);
+    const mv=parseFloat(document.getElementById('c-mv').value);
+    const T=parseFloat(document.getElementById('c-T').value);
+    const V=parseFloat(document.getElementById('c-V').value);
+    let [,iStr,MStr]=sv.split('|');
+    let iV=parseFloat(iStr), Mm=parseFloat(MStr);
+    if(sv.startsWith('custom')){Mm=parseFloat(document.getElementById('c-cM').value);iV=parseFloat(document.getElementById('c-ci').value);}
+    const [sname,Kf,Kb,Tf0,Tb0,Msolv]=solvArr;
+    const nSol=ms/Mm, molal=nSol/(mv/1000), molar=nSol/V, Tk=T+273.15;
+    const dtf=parseFloat(Kf)*molal*iV, dtb=parseFloat(Kb)*molal*iV;
+    const piC=iV*molar*RG*Tk;
+    const nSolv=mv/parseFloat(Msolv||18.015), xB=nSol/(nSol+nSolv), dppC=xB*iV*100;
+    const f=n=>isNaN(n)||!isFinite(n)?'Error':n.toFixed(4);
+    document.getElementById('r-m').textContent=f(molal);
+    document.getElementById('r-M').textContent=f(molar);
+    document.getElementById('r-dtf').textContent=f(dtf);
+    document.getElementById('r-tf').textContent=f(parseFloat(Tf0)-dtf);
+    document.getElementById('r-dtb').textContent=f(dtb);
+    document.getElementById('r-tb').textContent=f(parseFloat(Tb0)+dtb);
+    document.getElementById('r-pi').textContent=f(piC);
+    document.getElementById('r-dp').textContent=f(dppC);
+    const res=document.getElementById('calc-res'); res.style.display='grid';
+    document.getElementById('c-report').innerHTML=`<div class="step-box"><h4>📋 Pasos del cálculo</h4>
+    <div style="font-size:.6rem;color:var(--txt3);margin-bottom:.5rem">${new Date().toLocaleString('es-ES')} | Solvente: ${sname} | i=${iV}</div>
+    <table><tr><th>Paso</th><th>Operación</th><th>Resultado</th></tr>
+    <tr><td>Moles de soluto</td><td>${ms}g ÷ ${Mm}g/mol</td><td>${f(nSol)} mol</td></tr>
+    <tr><td>Molalidad</td><td>${f(nSol)} mol ÷ (${mv}g÷1000)</td><td>${f(molal)} mol/kg</td></tr>
+    <tr><td>Molaridad</td><td>${f(nSol)} mol ÷ ${V}L</td><td>${f(molar)} mol/L</td></tr>
+    <tr><td>ΔTf = ${Kf}×m×${iV}</td><td>${Kf}×${f(molal)}×${iV}</td><td>${f(dtf)}°C → congela a ${f(parseFloat(Tf0)-dtf)}°C</td></tr>
+    <tr><td>ΔTb = ${Kb}×m×${iV}</td><td>${Kb}×${f(molal)}×${iV}</td><td>${f(dtb)}°C → hierve a ${f(parseFloat(Tb0)+dtb)}°C</td></tr>
+    <tr><td>Π = ${iV}×M×0.082×T</td><td>${iV}×${f(molar)}×0.082×${Tk.toFixed(1)}</td><td>${f(piC)} atm</td></tr>
+    <tr><td>ΔP/P° = χ×i×100</td><td>${f(xB)}×${iV}×100</td><td>${f(dppC)}%</td></tr>
+    </table></div>`;
+    toast('✅','Calculado','Los resultados aparecen arriba');
+  } catch(e) { toast('❌','Error',e.message); }
 }
 
-window.onload = () => { initLab(); };
+// ── Toast ───────────────────────────────────────────────
+function toast(icon, title, text) {
+  document.getElementById('t-i').textContent=icon;
+  document.getElementById('t-t').textContent=title;
+  document.getElementById('t-s').textContent=text;
+  const t=document.getElementById('toast'); t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'), 3200);
+}
+
+// ── Init ────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  setInterval(()=>{ if(S.running) refreshPanel(); }, 350);
+  toast('⚗️','¡Bienvenido!','Haz clic en un experimento para empezar');
+});
 </script>
 </body>
 </html>
